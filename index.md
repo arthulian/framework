@@ -50,7 +50,7 @@
 
 # **5. FAIRNESS**
 
-## **The balance between empathy and accountability, applied irrespective of circumstances and implemented through reciprocal exchanges.**
+## **Applies the balance between empathy and accountability, irrespective of circumstances, through reciprocal exchanges.**
 
 # **Examples:**
 
