@@ -50,7 +50,7 @@
 
 # **5. FAIRNESS**
 
-## **The balance between empathy and accountability, realized in relationships through reciprocity, and upheld with integrity**
+## **The balance between empathy and accountability, applied irrespective of circumstances, and realized in relationships through reciprocity.**
 
 # **Examples:**
 
