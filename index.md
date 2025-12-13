@@ -50,7 +50,7 @@
 
 # **5. FAIRNESS**
 
-## **The balance of empathy and accountability, realized in relationships through reciprocity, and applied across contexts**
+## **The balance between empathy and accountability, realized in relationships through reciprocity, and applied across contexts**
 
 # **Examples:**
 
@@ -74,7 +74,7 @@
 
 # **7. SELF-DISCIPLINE**
 
-## **Consistent, adaptive regulation of behavior aligned with end-goals and principles, while avoiding rigidity and complacency.**
+## **Consistent regulation of behavior aligned with end-goals and principles, while avoiding rigidity and complacency.**
 
 # **Examples:**
 
