@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Self-Regulation Framework</title>
+  <style>
+    /* 1. ROOT & PROPORTIONAL SIZING */
+    html {
+      font-size: 14px; /* Set as requested */
+    }
+
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* 2. PROPORTIONAL HEADINGS */
+    header {
+      margin-bottom: 3rem;
+      border-bottom: 1px solid #333;
+      padding-bottom: 2rem;
+    }
+
+    header h1 {
+      color: #0ff;
+      margin-bottom: 1.5rem;
+      font-size: 2.8rem; /* ~39px */
+      line-height: 1.1;
+    }
+
+    .intro-box {
+      background: rgba(0, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-left: 4px solid #0ff;
+    }
+
+    h2 { font-size: 2rem; margin: 0; }    /* ~28px */
+    h3 { font-size: 1.6rem; margin: 0; }  /* ~22.4px */
+    h4 { font-size: 1.3rem; margin: 0; }  /* ~18.2px */
+
+    /* 3. LAYOUT & CARDS */
+    section.card {
+      background: #111;
+      border: 2px solid #0ff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    details {
+      margin-bottom: 1rem;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+      color: #0f9;
+      padding: 0.5rem 0;
+      outline: none;
+    }
+
+    details > summary:hover {
+      color: #0ff;
+    }
+
+    .subheading {
+      color: #fc0;
+      display: inline;
+    }
+
+    /* 4. CONTENT STYLING */
+    p, .pill, li {
+      font-size: 1rem; /* Exactly 14px based on root */
+    }
+
+    .example {
+      color: #ccc;
+      font-style: italic;
+      margin: 0.5rem 0;
+      display: block;
+    }
+
+    /* 5. PILL & LIST RE-DESIGN */
+    .bias-group ul {
+      margin-top: 1rem;
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column; 
+      gap: 0.8rem;
+    }
+
+    .pill {
+      display: block; 
+      background: #1a1a1a;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 0.8rem 1.2rem;
+      color: #eee;
+      line-height: 1.5;
+    }
+
+    .pill:hover {
+      border-color: #0f9;
+      background: #222;
+    }
+
+    strong {
+      color: #0ff;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Self-Regulation</h1>
+  
+  <div class="intro-box">
+    <h2>0. SELF-REGULATION</h2>
+    <p><strong>Sustains goal-directed behavior by</strong> (a) inhibiting impulsive responses, (b) directing and sustaining attention, and (c) regulating emotion under pressure, distraction, or uncertainty.</p>
+  </div>
+</header>
+
+<section class="card">
+  <details open>
+    <summary><h2>1. Sense-Making</h2></summary>
+    <p><strong>Assembles a coherent working model of reality by</strong> (a) integrating metacognitive signals (confidence, bias cues, emotional arousal), (b) incorporating allocentric perspectives (other parties' models, base rates), (c) reconciling conflicts across inputs, and (d) revising preconceptions when warranted.</p>
+
+    <details open>
+      <summary><h4 class="subheading">1a. Critical Thinking</h4></summary>
+      <p><strong>Evaluates an assertion by</strong> (a) estimating the plausibility of its proposition, (b) assessing source reliability, (c) distinguishing claim, evidence, and inference as distinct justificatory elements, and (d) evaluating logical validity and evidential relevance.</p>
+      <p><strong>Behavioral markers:</strong> (a) distinguishes claim vs evidence, (b) seeks base rates, (c) attempts falsification, (d) tracks uncertainty explicitly.</p>
+    </details>
+
+    <details open>
+      <summary><h4 class="subheading">1b. Objectivity</h4></summary>
+      <p><strong>Identifies uneven standards in belief formation, then applies</strong> (a) empirical criteria (measurement, replication, base rates) and (b) rational criteria (veil of ignorance, non-contradiction, Bayes-consistent updating) uniformly across favored and disfavored conclusions, regardless of personal preference or prior commitment.</p>
+    </details>
+
+    <details open>
+      <summary><h4 class="subheading">1c. Fairness</h4></summary>
+      <p><strong>Applies impartial balance between</strong> (a) empathy (context, constraints, intent) and (b) accountability norms (reciprocity, consequences, repair) in reciprocal interactions, irrespective of status, convenience, mood, or sense of moral position.</p>
+      <span class="example">Example: Admits mistakes to prevent double standards and avoid hypocrisy.</span>
+    </details>
+
+    <details open>
+      <summary><h4 class="subheading">1d. Self-Reflection</h4></summary>
+      <p><strong>Analyzes past outcomes by accurately attributing results to internal choices and external factors, focusing on process and controllable elements to </strong> (a) detect recurring patterns, (b) identify genuine levers of influence, and (c) convert insight into implementation rules, avoiding rumination by translating reflection into testable action.</p>
+    </details>
+
+    <details open>
+      <summary><h4 class="subheading">1e. Self-Efficacy</h4></summary>
+      <p><strong>Maintains confidence aligned with evidence by</strong> (a) grounding self-belief firmly in verified past competencies and achievements in demonstrated competencies, (b) viewing setbacks as skill gaps rather than personal deficits, and (c) regularly re-testing abilities to confirm current capability and prevent skill atrophy.</p>
+      <span class="example">Examples: (a) integrates achievements into self-concept, (b) treats setbacks as training data.</span>
+    </details>
+  </details>
+</section>
+
+<section class="card">
+  <details open>
+    <summary><h2>2. Self-Discipline</h2></summary>
+    <p><strong>Applies self-regulation consistently to align behavior with long-term goals and principles by</strong> (a) choosing priorities, (b) sustaining execution, and (c) preventing drift into rigidity or complacency.</p>
+
+    <details open>
+      <summary><h3 class="subheading">2a. Temperance</h3></summary>
+      <p><strong>Manages willpower as a finite resource by</strong> (a) prioritizing demands according to current importance rather than past investment, (b) minimizing unnecessary decision load and exposure to temptations, and (c) selecting regulation strategies that conserve capacity for highest-priority goals.</p>
+      <span class="example">Example: Compresses emotions into a single label to regain focus.</span>
+    </details>
+
+    <details open>
+      <summary><h3 class="subheading">2b. Perseverance</h3></summary>
+      <p><strong>Sustains effort amid hardship by</strong> (a) countering avoidance impulses, (b) reaffirming commitment to the desired goal, and (c) using exposure and skill-building to reduce fear-driven withdrawal over time.</p>
+      <span class="example">Examples: (a) treats fear responses as trainable signals, (b) uses graduated exposure to build resilience.</span>
+    </details>
+  </details>
+</section>
+
+</body>
+</html>
