@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Definitions</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --card-bg: #1a1a1a;
+            --text-color: #ffffff;
+            --accent-color: #00ffcc;
+            --border-color: #333333;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #ffffff;
+            --card-bg: #f4f4f4;
+            --text-color: #000000;
+            --accent-color: #0055ff;
+            --border-color: #cccccc;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto 3rem auto;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.5rem;
+        }
+
+        #theme-toggle {
+            background: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 1.2rem;
+            border-radius: 8px;
+            height: fit-content;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .card h2 {
+            margin: 0;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            text-transform: capitalize;
+            font-weight: 600;
+        }
+
+        /* NEW: We use ::before to control the character via CSS */
+        .plus-icon {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-family: monospace;
+            line-height: 1;
+            transition: all 0.2s ease;
+        }
+
+        .plus-icon::before {
+            content: "+";
+        }
+
+        /* CHANGED: Swaps the character to '=' when the card is active */
+        .card.active .plus-icon::before {
+            content: "=";
+        }
+
+        .definition {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, margin-top 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .card.active .definition {
+            max-height: 400px; 
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+<header>
+    <h1>Definitions</h1>
+    <button id="theme-toggle">Toggle Mode</button>
+</header>
+
+<div class="grid">
+    <div class="card">
+        <div class="card-header">
+            <h2>Self-Regulation</h2>
+            <span class="plus-icon"></span>
+        </div>
+        <div class="definition">Manages impulses, attention, and emotions via a cycle of self-monitoring, analysis and self-adjusting.</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Sense-Making</h2>
+            <span class="plus-icon"></span>
+        </div>
+        <div class="definition">Converts raw data into structured schemas by integrating metacognitive signals, addressing allocentric perspectives, reconciling discrepancies across inputs, and revising preconceptions, by exploring, reframing, and testing ideas.</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Critical Thinking</h2>
+            <span class="plus-icon"></span>
+        </div>
+        <div class="definition">Evaluates assertions by estimating the prior plausibility of the proposition, assessing source reliability, distinguishing between claim, evidence and inference as separate justificatory layers, and evaluating logical validity and evidential relevance.</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Objectivity</h2>
+            <span class="plus-icon"></span>
+        </div>
+        <div class="definition">Mitigates motivated reasoning by identifying uneven evidentiary standards, then uniformly applying empirical criteria (measurement and replication) and rational criteria (bayes-updating) to all conclusions, through impersonal rules and self-critique.</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Fairness</h2>
+            <span class="plus-icon"></span>
+        </div>
+        <div class="definition">Maintains impartial balance by using an objective input–outcome ratio to weigh empathy relative to intent, against accountability relative to consequence.</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Self Reflection</h2>
+            <span class="plus-icon"></span>
+        </div>
+        <div class="definition">Causal attribution that involves separating personal choices from external circumstances, identifying recurring patterns and controllable levers of influence, and converting insights into action.</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Self Efficacy</h2>
+            <span class="plus-icon"></span>
+        </div>
+        <div class="definition">Grounds self-belief in past achievements, frames setbacks as temporary skill gaps rather than personal flaws, and periodically reassesses skills to pit subjective belief against objective competence.</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Self-discipline</h2>
+            <span class="plus-icon"></span>
+        </div>
+        <div class="definition">The establishment of priorities and the persistent implementation of goals, achieved by voluntarily inhibiting "wants" to pursue "shoulds" amid internal conflict, thus aligning behavior to long-term objectives.</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Temperance</h2>
+            <span class="plus-icon"></span>
+        </div>
+        <div class="definition">Allocates effort according to strategic importance rather than sunk costs, minimizes unnecessary decision load or temptation exposure, and selects regulation strategies that preserve resources for highest priorities.</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Perseverance</h2>
+            <span class="plus-icon"></span>
+        </div>
+        <div class="definition">Goal-directed persistence of action, through the overriding of avoidance urges, committing to valued outcomes, and utilizing gradual exposure and skill-development to reduce fear-driven withdrawal.</div>
+    </div>
+</div>
+
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        const body = document.body;
+        const currentTheme = body.getAttribute('data-theme');
+        body.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+    });
+
+    document.querySelectorAll('.card-header').forEach(header => {
+        header.addEventListener('click', () => {
+            header.parentElement.classList.toggle('active');
+        });
+    });
+</script>
+
+</body>
+</html>
