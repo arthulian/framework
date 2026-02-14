@@ -35,7 +35,7 @@ const cards: CardData[] = [
   {
     id: 'fairness',
     title: 'Fairness',
-    content: 'Empathetically weigh actor\'s intent → against accountability for consequences → in reciprocal interactions.',
+    content: 'Applies accountability by weighing: → intent against harmful consequences → in reciprocal interactions.',
     accentColor: 'hsl(320 70% 55%)',
     icon: <Heart className="w-6 h-6" />
   },
