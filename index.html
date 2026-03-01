@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Principles</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a;
+      color: #f5f5f5;
+      line-height: 1.6;
+      padding: 4rem 1.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      body { padding: 6rem 3rem; }
+    }
+    
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      h1 { font-size: 4rem; }
+    }
+    
+    .divider {
+      height: 1px;
+      width: 6rem;
+      background: linear-gradient(to right, rgba(255,255,255,0.4), transparent);
+      margin-bottom: 1.5rem;
+    }
+    
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 1.5rem;
+      font-size: 0.875rem;
+      margin-bottom: 4rem;
+    }
+    
+    .legend-item { display: flex; align-items: center; gap: 0.5rem; }
+    .legend-dot { width: 0.75rem; height: 0.75rem; border-radius: 50%; }
+    
+    .cyan { background: #22d3ee; }
+    .amber { background: #fbbf24; }
+    .emerald { background: #34d399; }
+    .violet { background: #a78bfa; }
+    .rose { background: #fb7185; }
+    
+    /* Principle items */
+    .principle {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      padding-left: 1rem;
+      border-left: 2px solid;
+    }
+    
+    @media (min-width: 768px) {
+      .principle { gap: 1rem; padding-left: 1.5rem; }
+    }
+    
+    .number {
+      font-family: ui-monospace, monospace;
+      font-size: 0.75rem;
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+      min-width: 2.5rem;
+    }
+    
+    .text { font-size: 0.9375rem; }
+    @media (min-width: 768px) { .text { font-size: 1rem; } }
+    
+    /* Indentation */
+    .l1 { padding-left: 2rem; }
+    .l2 { padding-left: 4rem; }
+    @media (min-width: 768px) { .l1 { padding-left: 3rem; } .l2 { padding-left: 6rem; } }
+    
+    /* Section 1: Cyan */
+    .s1.l0 { border-color: #22d3ee; }
+    .s1.l0 .number { color: #06b6d4; }
+    .s1.l0 .text { color: #67e8f9; font-weight: 500; }
+    
+    .s1.l1 { border-color: rgba(34, 211, 238, 0.5); }
+    .s1.l1 .number { color: rgba(6, 182, 212, 0.7); }
+    .s1.l1 .text { color: #a5f3fc; }
+    
+    /* Section 2: Amber */
+    .s2.l0 { border-color: #fbbf24; }
+    .s2.l0 .number { color: #f59e0b; }
+    .s2.l0 .text { color: #fcd34d; font-weight: 500; }
+    
+    .s2.l1 { border-color: rgba(251, 191, 36, 0.5); }
+    .s2.l1 .number { color: rgba(245, 158, 11, 0.7); }
+    .s2.l1 .text { color: #fde68a; }
+    
+    /* Section 3: Emerald */
+    .s3.l0 { border-color: #34d399; }
+    .s3.l0 .number { color: #10b981; }
+    .s3.l0 .text { color: #6ee7b7; font-weight: 500; }
+    
+    .s3.l1 { border-color: rgba(52, 211, 153, 0.5); }
+    .s3.l1 .number { color: rgba(16, 185, 129, 0.7); }
+    .s3.l1 .text { color: #a7f3d0; }
+    
+    /* Section 4: Violet */
+    .s4.l0 { border-color: #a78bfa; }
+    .s4.l0 .number { color: #8b5cf6; }
+    .s4.l0 .text { color: #c4b5fd; font-weight: 500; }
+    
+    .s4.l1 { border-color: rgba(167, 139, 250, 0.5); }
+    .s4.l1 .number { color: rgba(139, 92, 246, 0.7); }
+    .s4.l1 .text { color: #ddd6fe; }
+    
+    /* Section 5: Rose */
+    .s5.l0 { border-color: #fb7185; }
+    .s5.l0 .number { color: #f43f5e; }
+    .s5.l0 .text { color: #fda4af; font-weight: 500; }
+    
+    .s5.l1 { border-color: rgba(251, 113, 133, 0.5); }
+    .s5.l1 .number { color: rgba(244, 63, 94, 0.7); }
+    .s5.l1 .text { color: #fecdd3; }
+    
+    footer {
+      margin-top: 5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.4);
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Principles</h1>
+    <div class="divider"></div>
+    
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot cyan"></div><span style="color:#a5f3fc">Systemic Synthesis</span></div>
+      <div class="legend-item"><div class="legend-dot amber"></div><span style="color:#fde68a">Epistemology</span></div>
+      <div class="legend-item"><div class="legend-dot emerald"></div><span style="color:#a7f3d0">Ethics & Values</span></div>
+      <div class="legend-item"><div class="legend-dot violet"></div><span style="color:#ddd6fe">Agency & Attribution</span></div>
+      <div class="legend-item"><div class="legend-dot rose"></div><span style="color:#fecdd3">Psychological Flexibility</span></div>
+    </div>
+    
+    <!-- Section 1: Meta-Principle -->
+    <div class="principle s1 l0"><span class="number">1.0</span><p class="text">Meta-Principle: Systemic Synthesis</p></div>
+    <div class="principle s1 l1"><span class="number">1.1</span><p class="text">Identify recurring patterns, represent them symbolically, and map out their interconnections.</p></div>
+    
+    <!-- Section 2: Epistemology -->
+    <div class="principle s2 l0"><span class="number">2.0</span><p class="text">Epistemology: The Truth-Processing Layer</p></div>
+    <div class="principle s2 l1"><span class="number">2.1</span><p class="text">Uniform criteria: Apply consistent empirical and rational standards to all conclusions.</p></div>
+    <div class="principle s2 l1"><span class="number">2.2</span><p class="text">Assess propositions based on their likelihood and the robustness of evidence.</p></div>
+    <div class="principle s2 l1"><span class="number">2.3</span><p class="text">Recognize and validate a continuous chain of reasoning (claims, evidence, and conclusions).</p></div>
+    <div class="principle s2 l1"><span class="number">2.4</span><p class="text">Evaluate the soundness of arguments and the relevance of evidence.</p></div>
+    <div class="principle s2 l1"><span class="number">2.5</span><p class="text">Recognize that oversimplifications and binary thinking arise from framing narratives and cognitive distortions, and counter them by applying a nuanced evaluation.</p></div>
+    <div class="principle s2 l1"><span class="number">2.6</span><p class="text">Epistemological humility: Absence of evidence does not equal proof of absence (unless there are induction-based premises).</p></div>
+    
+    <!-- Section 3: Ethics & Values -->
+    <div class="principle s3 l0"><span class="number">3.0</span><p class="text">Ethics & Values: The Calibration Layer</p></div>
+    <div class="principle s3 l1"><span class="number">3.1</span><p class="text">Process factual guilt to correct errors, but explicitly reject shame derived from external blame.</p></div>
+    <div class="principle s3 l1"><span class="number">3.2</span><p class="text">Fair judgement: use perspective-taking to balance intent against consequence.</p></div>
+    
+    <!-- Section 4: Agency & Attribution -->
+    <div class="principle s4 l0"><span class="number">4.0</span><p class="text">Agency & Attribution: The Performance Layer</p></div>
+    <div class="principle s4 l1"><span class="number">4.1</span><p class="text">Focus on controllables: shift attribution to skill, effort, and strategy, rather than fixed character.</p></div>
+    <div class="principle s4 l1"><span class="number">4.2</span><p class="text">Build confidence through mastery: Prioritize evidence of your competence over "identity".</p></div>
+    <div class="principle s4 l1"><span class="number">4.3</span><p class="text">Decoupling protocol: Base your persistence purely on ongoing outcomes, not on a referendum of your personal value.</p></div>
+    
+    <!-- Section 5: Psychological Flexibility -->
+    <div class="principle s5 l0"><span class="number">5.0</span><p class="text">Psychological Flexibility: The Regulation Layer</p></div>
+    <div class="principle s5 l1"><span class="number">5.1</span><p class="text">Cognitive defusion: Treat internal experiences (thoughts/emotions) as data points, not commands.</p></div>
+    <div class="principle s5 l1"><span class="number">5.2</span><p class="text">Gradually confront situations and unknowns you typically avoid to reduce fear.</p></div>
+    <div class="principle s5 l1"><span class="number">5.3</span><p class="text">Expectancy Violation: When anticipated negative outcomes fail to occur, the brain's predictive models are forced to update.</p></div>
+    
+    <footer>A framework for reasoning, judgment, and action.</footer>
+  </main>
+</body>
+</html>
