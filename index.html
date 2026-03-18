@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Framework</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --base-font-size: 16px;
+        }
+
+        html {
+            font-size: var(--base-font-size);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #0d0d0d;
+            color: #e8e8e8;
+            line-height: 1.7;
+            padding: 3rem 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #888;
+            letter-spacing: 0.05em;
+        }
+
+        .font-size-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #1a1a1a;
+            border-radius: 6px;
+            padding: 0.25rem;
+        }
+
+        .font-btn {
+            background: transparent;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            padding: 0.5rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+            font-family: inherit;
+        }
+
+        .font-btn:hover {
+            background-color: #2a2a2a;
+            color: #ccc;
+        }
+
+        .font-size-display {
+            color: #666;
+            font-size: 0.75rem;
+            min-width: 2.5rem;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .section-item {
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #141414;
+        }
+
+        .section-item.section-1 { border-left: 3px solid #60a5fa; }
+        .section-item.section-2 { border-left: 3px solid #4ade80; }
+        .section-item.section-3 { border-left: 3px solid #fbbf24; }
+        .section-item.section-4 { border-left: 3px solid #f87171; }
+
+        .section-header {
+            background-color: #1a1a1a;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+        }
+
+        .section-number {
+            font-size: 0.875rem;
+            font-weight: 500;
+            opacity: 0.6;
+            min-width: 2rem;
+        }
+
+        .section-1 .section-number { color: #60a5fa; }
+        .section-2 .section-number { color: #4ade80; }
+        .section-3 .section-number { color: #fbbf24; }
+        .section-4 .section-number { color: #f87171; }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #f0f0f0;
+            flex: 1;
+        }
+
+        .section-body {
+            padding: 1.5rem 1.5rem 1.5rem 2rem;
+        }
+
+        .content-list {
+            list-style: none;
+        }
+
+        .content-list li {
+            margin-bottom: 1rem;
+        }
+
+        .item-title {
+            font-weight: 500;
+            color: #fff;
+            display: inline;
+        }
+
+        /* UPDATED: Smaller, centered bullet point */
+        .bullet-point {
+            margin-right: 0.6rem;
+            font-size: 0.65em; /* Scaled down */
+            vertical-align: 0.2em; /* Nudged up for optical centering */
+            display: inline-block;
+        }
+
+        .section-1 .bullet-point { color: #60a5fa; }
+        .section-2 .bullet-point { color: #4ade80; }
+        .section-3 .bullet-point { color: #fbbf24; }
+        .section-4 .bullet-point { color: #f87171; }
+
+        .item-description {
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            display: inline;
+            margin-left: 0.3rem;
+        }
+
+        .section-1 .item-description { color: #60a5fa; }
+        .section-2 .item-description { color: #4ade80; }
+        .section-3 .item-description { color: #fbbf24; }
+        .section-4 .item-description { color: #f87171; }
+
+        @media (max-width: 600px) {
+            body { padding: 2rem 1rem; }
+            .header-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .section-body { padding: 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-row">
+        <h1>Framework</h1>
+        <div class="font-size-controls">
+            <button class="font-btn" onclick="changeFontSize(-1)">A-</button>
+            <span class="font-size-display" id="fontSizeDisplay">100%</span>
+            <button class="font-btn" onclick="changeFontSize(1)">A+</button>
+        </div>
+    </div>
+    
+    <div class="content-container">
+        <div class="section-item section-1">
+            <div class="section-header">
+                <span class="section-number">1.0</span>
+                <span class="section-title">Epistemic-Processing</span>
+            </div>
+            <div class="section-body">
+                <ul class="content-list">
+                    <li><span class="item-title"><span class="bullet-point">•</span>Logical Coherence:</span><span class="item-description">Follow an unbroken logical chain in which every assertion stems directly from supporting facts or prior premises.</span></li>
+                    <li><span class="item-title"><span class="bullet-point">•</span>Empirical Grounding:</span><span class="item-description">Base claims on observable data, reproducible methods, and measurable outcomes.</span></li>
+                    <li><span class="item-title"><span class="bullet-point">•</span>Graduated Confidence:</span><span class="item-description">Evaluate claims via degrees of confidence, applying logical and evidentiary standards.</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-item section-2">
+            <div class="section-header">
+                <span class="section-number">2.0</span>
+                <span class="section-title">Ethical Calibration</span>
+            </div>
+            <div class="section-body">
+                <ul class="content-list">
+                    <li><span class="item-title"><span class="bullet-point">•</span>Self-accountability:</span><span class="item-description">Evaluate the fairness of your conduct by weighing immediate volitions against long-term consequences.</span></li>
+                    <li><span class="item-title"><span class="bullet-point">•</span>Perspective-Taking:</span><span class="item-description">Objectively analyze allocentric viewpoints to maintain impartiality during all interactions.</span></li>
+                    <li><span class="item-title"><span class="bullet-point">•</span>Value Consistency:</span><span class="item-description">Integrate personal ethics into daily choices, making sure decisions resonate with core values.</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-item section-3">
+            <div class="section-header">
+                <span class="section-number">3.0</span>
+                <span class="section-title">Effectiveness</span>
+            </div>
+            <div class="section-body">
+                <ul class="content-list">
+                    <li><span class="item-title"><span class="bullet-point">•</span>Locus of Control:</span><span class="item-description">Attribute outcomes to effort, skills, and strategy rather than uncontrollable factors.</span></li>
+                    <li><span class="item-title"><span class="bullet-point">•</span>Evidence-Based Confidence:</span><span class="item-description">Base confidence levels in proportion to demonstrated competence.</span></li>
+                    <li><span class="item-title"><span class="bullet-point">•</span>Decoupling:</span><span class="item-description">Objectively interpret setbacks as feedback rather than as a reflection of intrinsic self-worth.</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-item section-4">
+            <div class="section-header">
+                <span class="section-number">4.0</span>
+                <span class="section-title">Self-Regulation</span>
+            </div>
+            <div class="section-body">
+                <ul class="content-list">
+                    <li><span class="item-title"><span class="bullet-point">•</span>Impulse Control:</span><span class="item-description">Adopt an observer mindset toward mental states, distinguishing them clearly from binding directives.</span></li>
+                    <li><span class="item-title"><span class="bullet-point">•</span>Hormesis:</span><span class="item-description">Gradually expose yourself to novel challenges to build tolerance and reduce anxiety.</span></li>
+                    <li><span class="item-title"><span class="bullet-point">•</span>Falsifiability:</span><span class="item-description">Test hypotheses by seeking counter-arguments while avoiding false dichotomies.</span></li>
+                    <li><span class="item-title"><span class="bullet-point">•</span>Baseline Certainty:</span><span class="item-description">Evaluate every situation assuming baselines depend on contingent conditions.</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentFontSize = 16;
+        function updateFontSize() {
+            document.documentElement.style.setProperty('--base-font-size', currentFontSize + 'px');
+            document.getElementById('fontSizeDisplay').textContent = Math.round((currentFontSize / 16) * 100) + '%';
+        }
+        function changeFontSize(direction) {
+            const newSize = currentFontSize + (direction * 2);
+            if (newSize >= 12 && newSize <= 24) {
+                currentFontSize = newSize;
+                updateFontSize();
+            }
+        }
+    </script>
+</body>
+</html>
