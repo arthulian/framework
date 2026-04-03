@@ -1,8 +1,350 @@
-<h3>Controllable:</h3>
-<p>This definition text will inherit the section-2 green color.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Framework</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<h3>Partial Control:</h3>
-<p>This definition text will also inherit the section-2 green color.</p>
+        :root {
+            --base-font-size: 16px;
+        }
 
-<h3>Uncontrollable:</h3>
-<p>This definition text will inherit the section-2 green color as well.</p>
+        html {
+            font-size: var(--base-font-size);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #0d0d0d;
+            color: #e8e8e8;
+            line-height: 1.7;
+            padding: 3rem 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #888;
+            letter-spacing: 0.05em;
+        }
+
+        .font-size-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #1a1a1a;
+            border-radius: 6px;
+            padding: 0.25rem;
+        }
+
+        .font-btn {
+            background: transparent;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            padding: 0.5rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+            font-family: inherit;
+        }
+
+        .font-btn:hover {
+            background-color: #2a2a2a;
+            color: #ccc;
+        }
+
+        .font-size-display {
+            color: #666;
+            font-size: 0.75rem;
+            min-width: 2.5rem;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .section-item {
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #141414;
+        }
+
+        .section-item.section-1 { border-left: 3px solid #60a5fa; }
+        .section-item.section-2 { border-left: 3px solid #4ade80; }
+        .section-item.section-3 { border-left: 3px solid #fbbf24; }
+
+        .section-header {
+            background-color: #1a1a1a;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 500;
+            flex: 1;
+            text-transform: uppercase; /* Ensure All Caps */
+        }
+
+        .section-body {
+            padding: 1.5rem 1.5rem 1.5rem 2rem;
+        }
+
+        .sub-heading {
+            font-size: 0.8rem;
+            text-transform: uppercase; /* Ensure All Caps */
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+        }
+
+        .sub-heading:first-child { margin-top: 0; }
+
+        .content-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-list:last-child { margin-bottom: 0; }
+
+        .content-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        .nested-list {
+            list-style: none;
+            margin-top: 0.5rem;
+            margin-left: 1.2rem;
+        }
+
+        .nested-list li {
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .item-title {
+            font-weight: 500;
+            color: #fff;
+            display: inline;
+        }
+
+        .bullet-point {
+            margin-right: 0.6rem;
+            font-size: 0.65em;
+            vertical-align: 0.2em;
+            display: inline-block;
+        }
+
+        /* Section 1 Colors (Blue) */
+        .section-1 .section-title, 
+        .section-1 .sub-heading,
+        .section-1 .bullet-point, 
+        .section-1 .nested-bullet,
+        .section-1 .item-description, 
+        .section-1 .nested-list { color: #60a5fa; }
+
+        /* Section 2 Colors (Green) */
+        .section-2 .section-title, 
+        .section-2 .sub-heading,
+        .section-2 .bullet-point, 
+        .section-2 .nested-bullet,
+        .section-2 .item-description, 
+        .section-2 .nested-list { color: #4ade80; }
+
+        /* Section 3 Colors (Yellow) */
+        .section-3 .section-title, 
+        .section-3 .sub-heading,
+        .section-3 .bullet-point, 
+        .section-3 .nested-bullet,
+        .section-3 .item-description, 
+        .section-3 .nested-list { color: #fbbf24; }
+
+        .nested-bullet {
+            margin-right: 0.5rem;
+            font-size: 0.8em;
+        }
+
+        .item-description {
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            display: inline;
+            margin-left: 0.3rem;
+        }
+
+        .principle, .Note {
+            margin-top: 1.25rem;
+            padding: 0.75rem 1rem;
+            background-color: #1a1a1a;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            color: #888;
+        }
+
+        .section-1 .principle, .section-1 .Note { border-left: 2px solid #60a5fa; }
+        .section-1 .principle strong, .section-1 .Note strong { color: #60a5fa; }
+
+        .section-2 .principle, .section-2 .Note { border-left: 2px solid #4ade80; }
+        .section-2 .principle strong, .section-2 .Note strong { color: #4ade80; }
+
+        .section-3 .principle, .section-3 .Note { border-left: 2px solid #fbbf24; }
+        .section-3 .principle strong, .section-3 .Note strong { color: #fbbf24; }
+
+        @media (max-width: 600px) {
+            body { padding: 2rem 1rem; }
+            .header-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .section-body { padding: 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-row">
+        <h1>FRAMEWORK</h1>
+        <div class="font-size-controls">
+            <button class="font-btn" onclick="changeFontSize(-1)">A-</button>
+            <span class="font-size-display" id="fontSizeDisplay">100%</span>
+            <button class="font-btn" onclick="changeFontSize(1)">A+</button>
+        </div>
+    </div>
+    
+    <div class="content-container">
+        <div class="section-item section-1">
+            <div class="section-header">
+                <span class="section-title">1. Intellectual & Epistemic Humility</span>
+            </div>
+            <div class="section-body">
+                <div class="sub-heading">A. Core Principles</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="item-title"><span class="bullet-point">•</span>Epistemic Pre-commitment:</span>
+                        <ul class="nested-list">
+                            <li><span class="nested-bullet">›</span>Present disproving evidence at the outset to prevent bias.</li>
+                            <li><span class="nested-bullet">›</span>Remove loopholes to avoid shifting goalposts during evaluation.</li>
+                            <li><span class="nested-bullet">›</span>Prioritize objective truth over the subjective need to be right.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="item-title"><span class="bullet-point">•</span>Recognizing Limits:</span>
+                        <ul class="nested-list">
+                            <li><span class="nested-bullet">›</span>Clearly acknowledge gaps in knowledge.</li>
+                            <li><span class="nested-bullet">›</span>Identify the specific conditions where your argument ceases to apply.</li>
+                            <li><span class="nested-bullet">›</span>Spot contradictions where justification methods break down.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="sub-heading">B. Stress-Testing Methods</div>
+                <ul class="content-list">
+                    <li><span class="item-title"><span class="bullet-point">•</span>Mirror Test:</span><span class="item-description">Represent the opponent’s logic with high fidelity, to stress-test your own framework against the most robust version of a counter-argument.</span></li>
+                    <li><span class="item-title"><span class="bullet-point">•</span>Graded Confidence:</span><span class="item-description">Evaluate the quality of evidence to guide how strongly you hold each belief.</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-item section-2">
+            <div class="section-header">
+                <span class="section-title">2. Self-Control & Equanimity</span>
+            </div>
+            <div class="section-body">
+                <div class="sub-heading">A. Observer Mindset</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="item-title"><span class="bullet-point">•</span></span>
+                        <span class="item-description">Observe internal states (emotions & thoughts) without identifying with them; separate reasoning from impulses.</span>
+                    </li>
+                </ul>
+                <div class="sub-heading">B. Effort Allocation</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="item-title"><span class="bullet-point">•</span><span style="color:#60a5fa; text-transform: uppercase; font-size: 0.9em; font-weight: bold;">Controllable</span></span>: Invest full cognitive resources where actions reliably influence outcomes.
+                    </li>
+                    <li>
+                        <span class="nested-bullet">›</span><span style="color:#60a5fa; text-transform: uppercase; font-size: 0.85em; font-weight: bold;">Partial Control</span>: Scale effort according to realistic level of influence.
+                    </li>
+                    <li>
+                        <span class="nested-bullet">›</span><span style="color:#60a5fa; text-transform: uppercase; font-size: 0.85em; font-weight: bold;">Uncontrollable</span>: Refrain from effort to prevent wasted energy and instability.
+                    </li>
+                </ul>
+                <div class="sub-heading">C. Identity Setting</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="item-title"><span class="bullet-point">•</span></span>
+                        <span class="item-description">Ground self-image in volition (conscious choices and intentional actions) rather than external outcomes.</span>
+                    </li>
+                </ul>
+                <div class="principle">
+                    <strong>Principle:</strong> Directing effort toward uncontrollable conditions is inefficient and destabilizing.
+                </div>
+            </div>
+        </div>
+
+        <div class="section-item section-3">
+            <div class="section-header">
+                <span class="section-title">3. Stress Inoculation & Resilience</span>
+            </div>
+            <div class="section-body">
+                <div class="sub-heading">A. Stress Response Profiles</div>
+                <ul class="content-list">
+                    <li>
+                        <ul class="nested-list">
+                            <li><span class="nested-bullet">›</span><span style="color:#60a5fa; text-transform: uppercase; font-size: 0.85em; font-weight: bold;">Threat</span>: Maintain and defend the integrity of your framework under pressure.</li>
+                            <li><span class="nested-bullet">›</span><span style="color:#60a5fa; text-transform: uppercase; font-size: 0.85em; font-weight: bold;">Tests</span>: Utilize contradictions and criticisms (feedback) as specific tools to sharpen the framework.</li>
+                            <li><span class="nested-bullet">›</span><span style="color:#60a5fa; text-transform: uppercase; font-size: 0.85em; font-weight: bold;">Varying Challenges</span>: Apply learned strategies to novel and changing situations.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="sub-heading">B. Optimal Challenge</div>
+                <ul class="content-list">
+                    <li><span class="item-title"><span class="bullet-point">•</span>Moderate, varied challenges produce the strongest adaptive capacity.</span></li>
+                </ul>
+
+                <div class="sub-heading">C. Self-Efficacy</div>
+                <ul class="content-list">
+                    <li><span class="item-title"><span class="bullet-point">•</span>Confidence Cycle:</span><span class="item-description">Confidence grows through repeated successful adaptation to stress.</span></li>
+                </ul>
+
+                <div class="Note">
+                    <strong>Caution:</strong> Abandoning agency undermines the ability to adapt and may lead to learned helplessness.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentFontSize = 16;
+        function updateFontSize() {
+            document.documentElement.style.setProperty('--base-font-size', currentFontSize + 'px');
+            document.getElementById('fontSizeDisplay').textContent = Math.round((currentFontSize / 16) * 100) + '%';
+        }
+        function changeFontSize(direction) {
+            const newSize = currentFontSize + (direction * 2);
+            if (newSize >= 12 && newSize <= 32) {
+                currentFontSize = newSize;
+            }
+            updateFontSize();
+        }
+    </script>
+</body>
+</html>
