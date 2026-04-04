@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Framework: Intellectual Humility, Equanimity & Resilience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --border-color: #2a2a2a;
+            
+            /* Section Colors */
+            --section-1-color: #60a5fa;
+            --section-2-color: #34d399;
+            --section-3-color: #f472b6;
+            
+            /* Section backgrounds (subtle) */
+            --section-1-bg: rgba(96, 165, 250, 0.03);
+            --section-2-bg: rgba(52, 211, 153, 0.03);
+            --section-3-bg: rgba(244, 114, 182, 0.03);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            padding: 1.25rem 1.5rem;
+            background-color: var(--bg-secondary);
+        }
+
+        .section-number {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--section-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .section-body {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            background-color: var(--section-bg);
+        }
+
+        /* Section 1 - Blue */
+        .section-1 {
+            --section-color: var(--section-1-color);
+            --section-bg: var(--section-1-bg);
+        }
+
+        /* Section 2 - Green */
+        .section-2 {
+            --section-color: var(--section-2-color);
+            --section-bg: var(--section-2-bg);
+        }
+
+        /* Section 3 - Pink */
+        .section-3 {
+            --section-color: var(--section-3-color);
+            --section-bg: var(--section-3-bg);
+        }
+
+        .subsection {
+            margin-top: 1.5rem;
+        }
+
+        .subsection-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--section-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .item {
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--border-color);
+        }
+
+        .item:hover {
+            border-left-color: var(--section-color);
+        }
+
+        .item-title {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .item-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--section-color);
+        }
+
+        .item-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            padding-left: 1rem;
+        }
+
+        .item-content ul {
+            list-style: none;
+        }
+
+        .item-content li {
+            position: relative;
+            padding-left: 1rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .item-content li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--section-color);
+            font-weight: 600;
+        }
+
+        .caution-box {
+            margin-top: 1.5rem;
+            padding: 1rem 1.25rem;
+            background-color: rgba(251, 191, 36, 0.08);
+            border-left: 3px solid #fbbf24;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .caution-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #fbbf24;
+            margin-bottom: 0.25rem;
+        }
+
+        .caution-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1rem;
+            }
+
+            .section-header {
+                padding: 1rem;
+            }
+
+            .section-body {
+                padding: 0 1rem 1rem 1rem;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .section {
+                border: 1px solid #ccc;
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Framework</h1>
+            <p class="subtitle">Intellectual Humility · Equanimity · Resilience</p>
+        </header>
+
+        <!-- Section 1: Intellectual & Epistemic Humility -->
+        <section class="section section-1">
+            <div class="section-header">
+                <div class="section-number">Section 1</div>
+                <div class="section-title">Intellectual & Epistemic Humility</div>
+            </div>
+            <div class="section-body">
+                <!-- A. Core Principles -->
+                <div class="subsection">
+                    <div class="subsection-title">A. Core Principles</div>
+                    
+                    <div class="item">
+                        <div class="item-title">Epistemic Pre-commitment</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Define falsifiers before forming conclusions.</li>
+                                <li>Avoid changing the rules or standards that let you move the goalposts.</li>
+                                <li>Focus on 'getting it right' rather than 'being right'.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-title">Awareness of Knowledge Limits</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Recognize what you don't know and challenge assumptions using evidence.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-title">Testing Argument Boundaries</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Pinpoint weak spots and ensure your reasoning holds under scrutiny.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- B. Stress-Testing Methods -->
+                <div class="subsection">
+                    <div class="subsection-title">B. Stress-Testing Methods</div>
+                    
+                    <div class="item">
+                        <div class="item-title">Mirror Test</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Challenge your own views by fairly presenting the opposing arguments with high-fidelity.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-title">Graded Confidence</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Adjust how strongly you hold beliefs based on the strength of evidence.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Equanimity Through Self-Control -->
+        <section class="section section-2">
+            <div class="section-header">
+                <div class="section-number">Section 2</div>
+                <div class="section-title">Equanimity Through Self-Control</div>
+            </div>
+            <div class="section-body">
+                <!-- A. Observer Mindset -->
+                <div class="subsection">
+                    <div class="subsection-title">A. Observer Mindset</div>
+                    
+                    <div class="item">
+                        <div class="item-title">Internal State Awareness</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Notice your internal states without getting caught up in them, allowing you to separate how you feel from who you are.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- B. Effort Allocation -->
+                <div class="subsection">
+                    <div class="subsection-title">B. Effort Allocation</div>
+                    
+                    <div class="item">
+                        <div class="item-title">Controllable</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Invest full cognitive resources when actions reliably influence outcomes.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-title">Partial Control</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Scale effort according to realistic level of influence.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-title">Uncontrollable</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Refrain from effort to prevent wasted energy and instability.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- C. Identity Setting -->
+                <div class="subsection">
+                    <div class="subsection-title">C. Identity Setting</div>
+                    
+                    <div class="item">
+                        <div class="item-title">Volitional Grounding</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Ground self-image in your volition (intentional actions) rather than external outcomes.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Resilience Through Stress Inoculation -->
+        <section class="section section-3">
+            <div class="section-header">
+                <div class="section-number">Section 3</div>
+                <div class="section-title">Resilience Through Stress Inoculation</div>
+            </div>
+            <div class="section-body">
+                <!-- A. Stress Response Profiles -->
+                <div class="subsection">
+                    <div class="subsection-title">A. Stress Response Profiles</div>
+                    
+                    <div class="item">
+                        <div class="item-title">Distress</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Defend the integrity of your system under pressure or threat.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-title">Eustress</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Use tests, such as contradictions and fallacies, as tools to improve your structure.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-title">Hormesis</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Gradually apply what you've mastered to cumulative challenges.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- B. Optimal Challenge -->
+                <div class="subsection">
+                    <div class="subsection-title">B. Optimal Challenge</div>
+                    
+                    <div class="item">
+                        <div class="item-title">Moderate Intensity</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>A moderate level of cumulative challenges create the strongest adaptation curve.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- C. Self-Efficacy Cycle -->
+                <div class="subsection">
+                    <div class="subsection-title">C. Self-Efficacy Cycle</div>
+                    
+                    <div class="item">
+                        <div class="item-title">Confidence Building</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Confidence grows through repeated successful adaptation to stress.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Caution -->
+                <div class="caution-box">
+                    <div class="caution-label">Caution</div>
+                    <div class="caution-text">Abandoning agency undermines the ability to adapt and may lead to learned helplessness.</div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
