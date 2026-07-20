@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reasoning Framework & Logical Structure</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --text-color: #f3f4f6;
+            --border-color: #374151;
+            
+            /* Section Colors */
+            --sec-1: #06b6d4;
+            --sec-1-bg: rgba(6, 182, 212, 0.05);
+            --sec-2: #10b981;
+            --sec-2-bg: rgba(16, 185, 129, 0.05);
+            --sec-3: #f59e0b;
+            --sec-3-bg: rgba(245, 158, 11, 0.05);
+            --sec-4: #f43f5e;
+            --sec-4-bg: rgba(244, 63, 94, 0.05);
+            --sec-5: #8b5cf6;
+            --sec-5-bg: rgba(139, 92, 246, 0.05);
+            --sec-6: #3b82f6;
+            --sec-6-bg: rgba(59, 130, 246, 0.05);
+            --sec-7: #14b8a6;
+            --sec-7-bg: rgba(20, 184, 166, 0.05);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        @media (min-width: 900px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .framework-column {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        section {
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: rgba(17, 24, 39, 0.7);
+        }
+
+        /* Color Coding */
+        section.s-1 { border-color: var(--sec-1); background-color: var(--sec-1-bg); }
+        section.s-1 h2 { color: var(--sec-1); }
+        section.s-1 .branch { color: var(--sec-1); text-shadow: 0 0 8px var(--sec-1); }
+
+        section.s-2 { border-color: var(--sec-2); background-color: var(--sec-2-bg); }
+        section.s-2 h2 { color: var(--sec-2); }
+        section.s-2 .branch { color: var(--sec-2); text-shadow: 0 0 8px var(--sec-2); }
+
+        section.s-3 { border-color: var(--sec-3); background-color: var(--sec-3-bg); }
+        section.s-3 h2 { color: var(--sec-3); }
+        section.s-3 .branch { color: var(--sec-3); text-shadow: 0 0 8px var(--sec-3); }
+
+        section.s-4 { border-color: var(--sec-4); background-color: var(--sec-4-bg); }
+        section.s-4 h2 { color: var(--sec-4); }
+        section.s-4 .branch { color: var(--sec-4); text-shadow: 0 0 8px var(--sec-4); }
+
+        section.s-5 { border-color: var(--sec-5); background-color: var(--sec-5-bg); }
+        section.s-5 h2 { color: var(--sec-5); }
+        section.s-5 .branch { color: var(--sec-5); text-shadow: 0 0 8px var(--sec-5); }
+
+        section.s-6 { border-color: var(--sec-6); background-color: var(--sec-6-bg); }
+        section.s-6 h2 { color: var(--sec-6); }
+        section.s-6 .branch { color: var(--sec-6); text-shadow: 0 0 8px var(--sec-6); }
+
+        section.s-7 { border-color: var(--sec-7); background-color: var(--sec-7-bg); }
+        section.s-7 h2 { color: var(--sec-7); }
+        section.s-7 .branch { color: var(--sec-7); text-shadow: 0 0 8px var(--sec-7); }
+
+        h2 {
+            font-size: 1.4rem;
+            margin-top: 0;
+            border-bottom: 1px dashed currentColor;
+            padding-bottom: 0.5rem;
+            letter-spacing: 0.025em;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 0;
+            list-style-type: none;
+        }
+
+        li {
+            margin: 0.4rem 0;
+            white-space: pre-wrap;
+        }
+
+        /* High prominence branch styling */
+        .branch {
+            font-weight: 900;
+            font-size: 1.15em;
+            letter-spacing: 1px;
+            display: inline-block;
+        }
+
+        ul ul {
+            padding-left: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>System Architecture & Reasoning Framework</h1>
+        <p>Dark High-Contrast Matrix (Hardcoded Glowing Tree Branches)</p>
+    </header>
+
+    <div class="container">
+        <!-- Left Column: Reasoning Framework -->
+        <div class="framework-column">
+            
+            <section class="s-1">
+                <h2>I. Evidence Evaluation</h2>
+                <ul>
+                    <li><span class="branch">├── </span>Judge claims by identifying recurring patterns.</li>
+                    <li><span class="branch">├── </span>Reassess credibility when predictions consistently fail.</li>
+                    <li><span class="branch">├── </span>Distinguish observation from inference and unsupported claims.</li>
+                    <li><span class="branch">└── </span>Use counterfactual reasoning to examine apparent conflicts between evidence and emotional reactions.</li>
+                </ul>
+            </section>
+
+            <section class="s-2">
+                <h2>II. Assumption Analysis</h2>
+                <ul>
+                    <li><span class="branch">├── </span>Consider the strongest opposing arguments before reaching conclusions.</li>
+                    <li><span class="branch">├── </span>Evaluate both intent and consequences with contextual empathy.</li>
+                    <li><span class="branch">├── </span>Prioritize factual accuracy.</li>
+                    <li><span class="branch">├── </span>Avoid self-justification and motivated reasoning.</li>
+                    <li><span class="branch">├── </span>Apply consistent standards of verification.</li>
+                    <li><span class="branch">└── </span>Evaluate whether even the strongest opposing arguments remain internally consistent.</li>
+                </ul>
+            </section>
+
+            <section class="s-3">
+                <h2>III. Self-Compassion</h2>
+                <ul>
+                    <li><span class="branch">├── </span>Practice an observer's perspective of the present moment by reframing thoughts and emotions as transient mental states, allowing deliberate action, not reaction.</li>
+                    <li><span class="branch">├── </span>Remember that imperfection and vulnerability are universal.</li>
+                    <li><span class="branch">├── </span>Accept current limitations without unnecessary self-pressure.</li>
+                    <li><span class="branch">└── </span>Treat recovery as part of sustained engagement, not avoidance.</li>
+                </ul>
+            </section>
+
+            <section class="s-4">
+                <h2>IV. Character-Based Self-Worth</h2>
+                <ul>
+                    <li><span class="branch">├── </span>Ground self-worth in the voluntary development of character.</li>
+                    <li><span class="branch">├── </span>Understand character as embodying the transcendentals:
+                        <ul>
+                            <li><span class="branch">├── </span>Truth</li>
+                            <li><span class="branch">├── </span>Justice</li>
+                            <li><span class="branch">├── </span>Love</li>
+                            <li><span class="branch">├── </span>Wisdom</li>
+                            <li><span class="branch">├── </span>Holiness</li>
+                            <li><span class="branch">├── </span>Wholeness</li>
+                            <li><span class="branch">├── </span>Harmony</li>
+                            <li><span class="branch">├── </span>Actualized Potential</li>
+                            <li><span class="branch">└── </span>Immutable Faithfulness</li>
+                        </ul>
+                    </li>
+                    <li><span class="branch">├── </span>Treat the transcendentals as both the source and standard of genuine worth.</li>
+                    <li><span class="branch">└── </span>Avoid grounding self-worth in external validation, including defensive self-reliance and performative self-sufficiency.</li>
+                </ul>
+            </section>
+
+            <section class="s-5">
+                <h2>V. Stress Regulation</h2>
+                <ul>
+                    <li><span class="branch">├── </span>Under high stress, disengage through healthy boundaries.</li>
+                    <li><span class="branch">└── </span>Under moderate stress, use controlled challenges to build resilience and assess capacity.</li>
+                </ul>
+            </section>
+
+            <section class="s-6">
+                <h2>VI. Confidence Calibration</h2>
+                <ul>
+                    <li><span class="branch">├── </span>Calibrate confidence using empirical feedback.</li>
+                    <li><span class="branch">├── </span>Connect effort with outcomes.</li>
+                    <li><span class="branch">├── </span>Build skills through challenge.</li>
+                    <li><span class="branch">├── </span>Attribute success to effort supported by evidence.</li>
+                    <li><span class="branch">├── </span>Recognize demonstrated competence to reduce impostor syndrome.</li>
+                    <li><span class="branch">├── </span>Use setbacks to identify skill deficits, not deficiencies in self-worth.</li>
+                    <li><span class="branch">└── </span>Let increased confidence support progressively harder challenges.</li>
+                </ul>
+            </section>
+
+            <section class="s-7">
+                <h2>VII. Adaptive Persistence</h2>
+                <ul>
+                    <li><span class="branch">├── </span>Focus effort on influenceable events.</li>
+                    <li><span class="branch">├── </span>Avoid dwelling on sunk costs.</li>
+                    <li><span class="branch">├── </span>Aim for intelligent response rather than complete control.</li>
+                    <li><span class="branch">├── </span>Build perseverance through gradual exposure.</li>
+                    <li><span class="branch">└── </span>Regulate persistence with self-kindness to prevent burnout.</li>
+                </ul>
+            </section>
+
+        </div>
+
+        <!-- Right Column: Logical Structure -->
+        <div class="framework-column">
+            
+            <section class="s-3">
+                <h2>Conceptual Relations</h2>
+                <ul>
+                    <li><span class="branch">├── </span>Evidence Evaluation
+                        <ul>
+                            <li><span class="branch">├── </span>Recurring patterns inform credibility.</li>
+                            <li><span class="branch">├── </span>Failed predictions reduce credibility.</li>
+                            <li><span class="branch">├── </span>Observation is distinguished from inference.</li>
+                            <li><span class="branch">└── </span>Counterfactual reasoning examines conflicts between evidence and emotion.</li>
+                        </ul>
+                    </li>
+                    <li><span class="branch">├── </span>Assumption Analysis
+                        <ul>
+                            <li><span class="branch">├── </span>Strong rebuttals precede conclusions.</li>
+                            <li><span class="branch">├── </span>Intent and consequences are evaluated together.</li>
+                            <li><span class="branch">├── </span>Objectivity requires factual accuracy, consistent verification, and avoiding motivated reasoning.</li>
+                            <li><span class="branch">└── </span>Steelmanning precedes evaluation.</li>
+                        </ul>
+                    </li>
+                    <li><span class="branch">├── </span>Self-Compassion
+                        <ul>
+                            <li><span class="branch">├── </span>An observer's perspective of the present moment reframes thoughts and emotions as transient mental states.</li>
+                            <li><span class="branch">├── </span>Reframing thoughts and emotions as transient mental states enables deliberate action rather than automatic reaction.</li>
+                            <li><span class="branch">├── </span>Shared humanity includes imperfection and vulnerability.</li>
+                            <li><span class="branch">└── </span>Acceptance and recovery sustain engagement.</li>
+                        </ul>
+                    </li>
+                    <li><span class="branch">├── </span>Character-Based Self-Worth
+                        <ul>
+                            <li><span class="branch">├── </span>Character grounds self-worth.</li>
+                            <li><span class="branch">├── </span>Character embodies the transcendentals.</li>
+                            <li><span class="branch">├── </span>The transcendentals define and measure genuine worth.</li>
+                            <li><span class="branch">└── </span>External validation characterizes defensive self-worth.</li>
+                        </ul>
+                    </li>
+                    <li><span class="branch">├── </span>Stress Regulation
+                        <ul>
+                            <li><span class="branch">├── </span>High stress calls for boundaries.</li>
+                            <li><span class="branch">├── </span>Moderate stress calls for controlled challenge.</li>
+                            <li><span class="branch">└── </span>Controlled challenge builds resilience and reveals capacity.</li>
+                        </ul>
+                    </li>
+                    <li><span class="branch">├── </span>Confidence Calibration
+                        <ul>
+                            <li><span class="branch">├── </span>Feedback calibrates confidence.</li>
+                            <li><span class="branch">├── </span>Effort produces skill.</li>
+                            <li><span class="branch">├── </span>Evidence of competence updates self-perception.</li>
+                            <li><span class="branch">├── </span>Setbacks identify skill gaps rather than worth deficits.</li>
+                            <li><span class="branch">└── </span>Confidence supports greater challenges.</li>
+                        </ul>
+                    </li>
+                    <li><span class="branch">└── </span>Adaptive Persistence
+                        <ul>
+                            <li><span class="branch">├── </span>Effort focuses on influenceable events.</li>
+                            <li><span class="branch">├── </span>Sunk costs are disregarded.</li>
+                            <li><span class="branch">├── </span>Intelligent response is preferred over total control.</li>
+                            <li><span class="branch">├── </span>Gradual exposure builds perseverance.</li>
+                            <li><span class="branch">└── </span>Self-kindness regulates persistence and prevents burnout.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="s-4">
+                <h2>Structural Status</h2>
+                <ul>
+                    <li><span class="branch">├── </span>Necessary Relations
+                        <ul>
+                            <li><span class="branch">├── </span>Character → Self-Worth</li>
+                            <li><span class="branch">├── </span>Character → Transcendentals</li>
+                            <li><span class="branch">├── </span>Transcendentals → Standard of Worth</li>
+                            <li><span class="branch">├── </span>Feedback → Confidence</li>
+                            <li><span class="branch">├── </span>Feedback → Effort–Outcome Link</li>
+                            <li><span class="branch">├── </span>Controlled Challenge → Resilience</li>
+                            <li><span class="branch">├── </span>Observer Perspective → Reframing Thoughts and Emotions as Transient Mental States</li>
+                            <li><span class="branch">├── </span>Reframing Thoughts and Emotions as Transient Mental States → Deliberate Action</li>
+                            <li><span class="branch">├── </span>Acceptance → Recovery</li>
+                            <li><span class="branch">├── </span>Recovery → Engagement</li>
+                            <li><span class="branch">├── </span>Gradual Exposure → Perseverance</li>
+                            <li><span class="branch">├── </span>Self-Kindness → Regulated Persistence</li>
+                            <li><span class="branch">├── </span>Regulated Persistence → Burnout Prevention</li>
+                            <li><span class="branch">└── </span>Setbacks → Skill Deficits (Not Self-Worth Deficits)</li>
+                        </ul>
+                    </li>
+                    <li><span class="branch">├── </span>Supported Relations
+                        <ul>
+                            <li><span class="branch">├── </span>Patterns → Credibility Assessment</li>
+                            <li><span class="branch">├── </span>Failed Predictions → Credibility Reassessment</li>
+                            <li><span class="branch">├── </span>Counterfactual Reasoning → Evidence–Emotion Reconciliation</li>
+                            <li><span class="branch">├── </span>Intent + Consequences → Moral Evaluation</li>
+                            <li><span class="branch">├── </span>Steelmanning → Stronger Evaluation</li>
+                            <li><span class="branch">├── </span>Boundaries → Healthy Disengagement</li>
+                            <li><span class="branch">└── </span>Confidence → Greater Challenges</li>
+                        </ul>
+                    </li>
+                    <li><span class="branch">├── </span>Indeterminate Relations
+                        <ul>
+                            <li><span class="branch">└── </span>None</li>
+                        </ul>
+                    </li>
+                    <li><span class="branch">└── </span>Contradictory Relations
+                        <ul>
+                            <li><span class="branch">└── </span>None</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="s-5">
+                <h2>Core Principles</h2>
+                <ul>
+                    <li><span class="branch">├── </span>Self-worth is grounded in character through the transcendentals.</li>
+                    <li><span class="branch">├── </span>Confidence develops through empirical feedback connecting effort and outcomes.</li>
+                    <li><span class="branch">├── </span>Controlled challenge develops resilience.</li>
+                    <li><span class="branch">├── </span>Self-compassion cultivates an observer's perspective of the present moment, enabling deliberate action through reframing thoughts and emotions as transient mental states.</li>
+                    <li><span class="branch">├── </span>Recovery enables continued engagement.</li>
+                    <li><span class="branch">├── </span>Persistence remains adaptive when regulated by self-kindness.</li>
+                    <li><span class="branch">└── </span>Setbacks update competence, not intrinsic worth.</li>
+                </ul>
+            </section>
+
+            <section class="s-7">
+                <h2>Framework Overview</h2>
+                <ul>
+                    <li><span class="branch">├── </span>Reasoning Framework
+                        <ul>
+                            <li><span class="branch">├── </span>Evidence Evaluation</li>
+                            <li><span class="branch">├── </span>Assumption Analysis</li>
+                            <li><span class="branch">├── </span>Self-Compassion</li>
+                            <li><span class="branch">├── </span>Character-Based Self-Worth</li>
+                            <li><span class="branch">├── </span>Stress Regulation</li>
+                            <li><span class="branch">├── </span>Confidence Calibration</li>
+                            <li><span class="branch">└── </span>Adaptive Persistence</li>
+                        </ul>
+                    </li>
+                    <li><span class="branch">├── </span>Core Concepts
+                        <ul>
+                            <li><span class="branch">├── </span>Evidence</li>
+                            <li><span class="branch">├── </span>Character</li>
+                            <li><span class="branch">├── </span>Self-Worth</li>
+                            <li><span class="branch">├── </span>Confidence</li>
+                            <li><span class="branch">├── </span>Stress</li>
+                            <li><span class="branch">├── </span>Recovery</li>
+                            <li><span class="branch">├── </span>Persistence</li>
+                            <li><span class="branch">└── </span>Transcendentals</li>
+                        </ul>
+                    </li>
+                    <li><span class="branch">├── </span>Core Relations
+                        <ul>
+                            <li><span class="branch">├── </span>Evidence → Calibrated Judgment</li>
+                            <li><span class="branch">├── </span>Assumption Analysis → Better Conclusions</li>
+                            <li><span class="branch">├── </span>Self-Compassion → Deliberate Action</li>
+                            <li><span class="branch">├── </span>Character → Self-Worth</li>
+                            <li><span class="branch">├── </span>Stress Regulation → Resilience</li>
+                            <li><span class="branch">├── </span>Feedback → Confidence</li>
+                            <li><span class="branch">└── </span>Regulated Persistence → Sustained Effort</li>
+                        </ul>
+                    </li>
+                    <li><span class="branch">└── </span>Core Principles
+                        <ul>
+                            <li><span class="branch">├── </span>Character-Centered Self-Worth</li>
+                            <li><span class="branch">├── </span>Feedback-Calibrated Confidence</li>
+                            <li><span class="branch">├── </span>Challenge-Driven Resilience</li>
+                            <li><span class="branch">├── </span>Deliberate Action through Self-Compassion</li>
+                            <li><span class="branch">├── </span>Recovery Sustains Engagement</li>
+                            <li><span class="branch">├── </span>Adaptive Persistence</li>
+                            <li><span class="branch">└── </span>Competence and Worth Remain Distinct</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+    </div>
+
+</body>
+</html>
