@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specification Framework</title>
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-card: #111118;
+            --bg-card-hover: #161620;
+            --text-primary: #e8e8f0;
+            --text-secondary: #a0a0b8;
+            --text-muted: #6b6b80;
+            --border-subtle: #1e1e2e;
+
+            --c-perception: #22d3ee;
+            --c-reasoning: #f59e0b;
+            --c-selfreg: #34d399;
+            --c-identity: #c084fc;
+            --c-action: #fb7185;
+            --c-adaptive: #60a5fa;
+
+            --bg-perception: rgba(34, 211, 238, 0.06);
+            --bg-reasoning: rgba(245, 158, 11, 0.06);
+            --bg-selfreg: rgba(52, 211, 153, 0.06);
+            --bg-identity: rgba(192, 132, 252, 0.06);
+            --bg-action: rgba(251, 113, 133, 0.06);
+            --bg-adaptive: rgba(96, 165, 250, 0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding: 32px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .page-header h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .page-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .glossary {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 40px;
+        }
+
+        .glossary h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            letter-spacing: 0.02em;
+        }
+
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px 24px;
+        }
+
+        .glossary-item {
+            display: flex;
+            gap: 10px;
+            align-items: baseline;
+        }
+
+        .glossary-item .term {
+            font-weight: 700;
+            color: #f0c674;
+            white-space: nowrap;
+            min-width: 140px;
+        }
+
+        .glossary-item .def {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+        }
+
+        .card-perception::before { background: var(--c-perception); box-shadow: 0 0 20px var(--c-perception); }
+        .card-reasoning::before { background: var(--c-reasoning); box-shadow: 0 0 20px var(--c-reasoning); }
+        .card-selfreg::before { background: var(--c-selfreg); box-shadow: 0 0 20px var(--c-selfreg); }
+        .card-identity::before { background: var(--c-identity); box-shadow: 0 0 20px var(--c-identity); }
+        .card-action::before { background: var(--c-action); box-shadow: 0 0 20px var(--c-action); }
+        .card-adaptive::before { background: var(--c-adaptive); box-shadow: 0 0 20px var(--c-adaptive); }
+
+        .card-perception { background: linear-gradient(180deg, var(--bg-perception) 0%, var(--bg-card) 120px); }
+        .card-reasoning { background: linear-gradient(180deg, var(--bg-reasoning) 0%, var(--bg-card) 120px); }
+        .card-selfreg { background: linear-gradient(180deg, var(--bg-selfreg) 0%, var(--bg-card) 120px); }
+        .card-identity { background: linear-gradient(180deg, var(--bg-identity) 0%, var(--bg-card) 120px); }
+        .card-action { background: linear-gradient(180deg, var(--bg-action) 0%, var(--bg-card) 120px); }
+        .card-adaptive { background: linear-gradient(180deg, var(--bg-adaptive) 0%, var(--bg-card) 120px); }
+
+        .card-header {
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .card-header .roman {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            margin-bottom: 4px;
+        }
+
+        .card-header .definition {
+            margin-top: 8px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .card-perception .roman { color: var(--c-perception); }
+        .card-reasoning .roman { color: var(--c-reasoning); }
+        .card-selfreg .roman { color: var(--c-selfreg); }
+        .card-identity .roman { color: var(--c-identity); }
+        .card-action .roman { color: var(--c-action); }
+        .card-adaptive .roman { color: var(--c-adaptive); }
+
+        /* Outline — diamond inline with label */
+        .outline {
+            list-style: none;
+            padding: 0;
+        }
+
+        .outline > li {
+            margin-bottom: 14px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px;
+            align-items: start;
+        }
+
+        .diamond-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        .diamond {
+            font-size: 0.9em;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .card-perception .diamond { color: var(--c-perception); }
+        .card-reasoning .diamond { color: var(--c-reasoning); }
+        .card-selfreg .diamond { color: var(--c-selfreg); }
+        .card-identity .diamond { color: var(--c-identity); }
+        .card-action .diamond { color: var(--c-action); }
+        .card-adaptive .diamond { color: var(--c-adaptive); }
+
+        .outline-label {
+            font-weight: 700;
+            min-width: 110px;
+        }
+
+        .card-perception .outline-label { color: var(--c-perception); }
+        .card-reasoning .outline-label { color: var(--c-reasoning); }
+        .card-selfreg .outline-label { color: var(--c-selfreg); }
+        .card-identity .outline-label { color: var(--c-identity); }
+        .card-action .outline-label { color: var(--c-action); }
+        .card-adaptive .outline-label { color: var(--c-adaptive); }
+
+        .outline-content {
+            color: var(--text-secondary);
+            padding-top: 1px; /* optical alignment with label */
+        }
+
+        .outline-content .arrow {
+            color: var(--text-muted);
+            margin: 0 4px;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            margin-right: 6px;
+            margin-bottom: 4px;
+            border: 1px solid;
+        }
+
+        .card-perception .pill { background: rgba(34, 211, 238, 0.12); color: var(--c-perception); border-color: rgba(34, 211, 238, 0.25); }
+        .card-reasoning .pill { background: rgba(245, 158, 11, 0.12); color: var(--c-reasoning); border-color: rgba(245, 158, 11, 0.25); }
+        .card-selfreg .pill { background: rgba(52, 211, 153, 0.12); color: var(--c-selfreg); border-color: rgba(52, 211, 153, 0.25); }
+        .card-identity .pill { background: rgba(192, 132, 252, 0.12); color: var(--c-identity); border-color: rgba(192, 132, 252, 0.25); }
+        .card-action .pill { background: rgba(251, 113, 133, 0.12); color: var(--c-action); border-color: rgba(251, 113, 133, 0.25); }
+        .card-adaptive .pill { background: rgba(96, 165, 250, 0.12); color: var(--c-adaptive); border-color: rgba(96, 165, 250, 0.25); }
+
+        .feeds-into {
+            margin-top: 4px;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        .feeds-into strong {
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .card-perception .feeds-into strong { color: var(--c-perception); }
+        .card-reasoning .feeds-into strong { color: var(--c-reasoning); }
+        .card-selfreg .feeds-into strong { color: var(--c-selfreg); }
+        .card-identity .feeds-into strong { color: var(--c-identity); }
+        .card-action .feeds-into strong { color: var(--c-action); }
+        .card-adaptive .feeds-into strong { color: var(--c-adaptive); }
+
+        @media (max-width: 640px) {
+            .container { padding: 20px 16px; }
+            .page-header h1 { font-size: 1.7rem; }
+            .card { padding: 24px; }
+            
+            .outline > li { grid-template-columns: 1fr; gap: 4px; }
+            .outline-content { padding-top: 0; }
+            .glossary-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1>Specification Framework</h1>
+            <p class="subtitle">Preserve the integrity of Perception, Reasoning, Self-Regulation, Identity, and Action, under pressure conditions.</p>
+        </header>
+
+        <section class="glossary">
+            <div class="glossary-grid">
+                <div class="glossary-item">
+                    <span class="term">Truthfulness</span>
+                    <span class="def">Alignment of beliefs, representations, and actions with reality as best understood.</span>
+                </div>
+                <div class="glossary-item">
+                    <span class="term">Justice</span>
+                    <span class="def">Consistent application of fairness, responsibility, and accountability according to objective standards.</span>
+                </div>
+                <div class="glossary-item">
+                    <span class="term">Compassion</span>
+                    <span class="def">Recognition of suffering coupled with a commitment to reduce unnecessary harm while preserving responsibility.</span>
+                </div>
+                <div class="glossary-item">
+                    <span class="term">Wisdom</span>
+                    <span class="def">Disciplined application of knowledge, experience, and judgment toward beneficial action.</span>
+                </div>
+                <div class="glossary-item">
+                    <span class="term">Coherence</span>
+                    <span class="def">Logical consistency among beliefs, values, reasoning, identity, and behavior.</span>
+                </div>
+                <div class="glossary-item">
+                    <span class="term">Actualization</span>
+                    <span class="def">Continual realization and development of one's highest capacities through intentional growth.</span>
+                </div>
+                <div class="glossary-item">
+                    <span class="term">Incorruptibility</span>
+                    <span class="def">Resistance to influences that compromise truth, integrity, judgment, or moral character.</span>
+                </div>
+                <div class="glossary-item">
+                    <span class="term">Calibrated Confidence</span>
+                    <span class="def">Confidence proportional to demonstrated competence, maintained through empirical feedback.</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="cards-grid">
+            <article class="card card-perception">
+                <div class="card-header">
+                    <div class="roman">I. Perception</div>
+                    <p class="definition">Acquisition and interpretation of information about reality.</p>
+                </div>
+                <ul class="outline">
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Governed By</span></div>
+                        <span class="outline-content"><span class="pill">Truthfulness</span><span class="pill">Wisdom</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Requires</span></div>
+                        <span class="outline-content"><span class="pill">Attention</span><span class="pill">Observation</span><span class="pill">Curiosity</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Uses</span></div>
+                        <span class="outline-content"><span class="pill">Credibility Calibration</span><span class="pill">Belief Updating</span><span class="pill">Stress & Bias Mitigation</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Pipeline</span></div>
+                        <span class="outline-content">Observe <span class="arrow">→</span> Compare Sources <span class="arrow">→</span> Evaluate Credibility <span class="arrow">→</span> Detect Bias <span class="arrow">→</span> Update Beliefs</span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Produces</span></div>
+                        <span class="outline-content"><span class="pill">Evidence</span><span class="pill">Situational Awareness</span><span class="pill">Updated Beliefs</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Feeds Into</span></div>
+                        <span class="outline-content feeds-into"><strong>Reasoning</strong></span>
+                    </li>
+                </ul>
+            </article>
+
+            <article class="card card-reasoning">
+                <div class="card-header">
+                    <div class="roman">II. Reasoning</div>
+                    <p class="definition">Evaluation and integration of information to produce justified conclusions.</p>
+                </div>
+                <ul class="outline">
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Governed By</span></div>
+                        <span class="outline-content"><span class="pill">Truthfulness</span><span class="pill">Wisdom</span><span class="pill">Coherence</span><span class="pill">Fairness</span><span class="pill">Incorruptibility</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Requires</span></div>
+                        <span class="outline-content"><span class="pill">Evidence</span><span class="pill">Updated Beliefs</span><span class="pill">Context</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Uses</span></div>
+                        <span class="outline-content"><span class="pill">Steelmanning</span><span class="pill">Objectivity & Impartiality</span><span class="pill">Contextual Empathy</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Pipeline</span></div>
+                        <span class="outline-content">Interpret <span class="arrow">→</span> Analyze <span class="arrow">→</span> Compare <span class="arrow">→</span> Evaluate Impartially <span class="arrow">→</span> Test Assumptions <span class="arrow">→</span> Integrate Context <span class="arrow">→</span> Form Conclusions</span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Produces</span></div>
+                        <span class="outline-content"><span class="pill">Understanding</span><span class="pill">Decisions</span><span class="pill">Intentions</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Feeds Into</span></div>
+                        <span class="outline-content feeds-into"><strong>Self-Regulation</strong> <span class="arrow">•</span> <strong>Action</strong></span>
+                    </li>
+                </ul>
+            </article>
+
+            <article class="card card-selfreg">
+                <div class="card-header">
+                    <div class="roman">III. Self-Regulation</div>
+                    <p class="definition">Management of thoughts, emotions, and behavior in service of principled action.</p>
+                </div>
+                <ul class="outline">
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Governed By</span></div>
+                        <span class="outline-content"><span class="pill">Wisdom</span><span class="pill">Compassion</span><span class="pill">Actualization</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Requires</span></div>
+                        <span class="outline-content"><span class="pill">Self-Awareness</span><span class="pill">Self-Examination</span><span class="pill">Reasoning</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Uses</span></div>
+                        <span class="outline-content"><span class="pill">Grounded Awareness</span><span class="pill">Acceptance & Recovery</span><span class="pill">Calibrated Stress Response</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Pipeline</span></div>
+                        <span class="outline-content">Monitor <span class="arrow">→</span> Regulate Emotion <span class="arrow">→</span> Recover <span class="arrow">→</span> Recalibrate</span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Produces</span></div>
+                        <span class="outline-content"><span class="pill">Emotional Stability</span><span class="pill">Resilience</span><span class="pill">Behavioral Readiness</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Feeds Into</span></div>
+                        <span class="outline-content feeds-into"><strong>Identity</strong> <span class="arrow">•</span> <strong>Action</strong></span>
+                    </li>
+                </ul>
+            </article>
+
+            <article class="card card-identity">
+                <div class="card-header">
+                    <div class="roman">IV. Identity</div>
+                    <p class="definition">Integrated and enduring organization of one's beliefs, values, character, and self-concept.</p>
+                </div>
+                <ul class="outline">
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Governed By</span></div>
+                        <span class="outline-content"><span class="pill">Coherence</span><span class="pill">Compassion</span><span class="pill">Incorruptibility</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Requires</span></div>
+                        <span class="outline-content"><span class="pill">Self-Examination</span><span class="pill">Experience</span><span class="pill">Self-Regulation</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Uses</span></div>
+                        <span class="outline-content"><span class="pill">Anchored Self-Worth</span><span class="pill">Calibrated Confidence</span><span class="pill">Failure as Feedback</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Pipeline</span></div>
+                        <span class="outline-content">Self-Examine <span class="arrow">→</span> Integrate Experience <span class="arrow">→</span> Align Values <span class="arrow">→</span> Preserve Integrity</span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Produces</span></div>
+                        <span class="outline-content"><span class="pill">Stable Identity</span><span class="pill">Principled Character</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Feeds Into</span></div>
+                        <span class="outline-content feeds-into"><strong>Action</strong></span>
+                    </li>
+                </ul>
+            </article>
+
+            <article class="card card-action">
+                <div class="card-header">
+                    <div class="roman">V. Action</div>
+                    <p class="definition">Intentional execution of decisions within the external world.</p>
+                </div>
+                <ul class="outline">
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Governed By</span></div>
+                        <span class="outline-content"><span class="pill">Truthfulness</span><span class="pill">Wisdom</span><span class="pill">Coherence</span><span class="pill">Actualization</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Requires</span></div>
+                        <span class="outline-content"><span class="pill">Decisions</span><span class="pill">Stable Identity</span><span class="pill">Self-Regulation</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Uses</span></div>
+                        <span class="outline-content"><span class="pill">Strategic Focus</span><span class="pill">Sustainable Persistence</span><span class="pill">Flexible Commitment</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Pipeline</span></div>
+                        <span class="outline-content">Plan <span class="arrow">→</span> Prioritize <span class="arrow">→</span> Execute <span class="arrow">→</span> Monitor Outcomes <span class="arrow">→</span> Adjust Strategy</span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Produces</span></div>
+                        <span class="outline-content"><span class="pill">Outcomes</span><span class="pill">Experience</span><span class="pill">Consequences</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Feeds Into</span></div>
+                        <span class="outline-content feeds-into"><strong>Adaptive Performance</strong></span>
+                    </li>
+                </ul>
+            </article>
+
+            <article class="card card-adaptive">
+                <div class="card-header">
+                    <div class="roman">VI. Adaptive Performance</div>
+                    <p class="definition">Sustaining and improving effective performance through evidence, self-examination, learning, and adaptation.</p>
+                </div>
+                <ul class="outline">
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Governed By</span></div>
+                        <span class="outline-content"><span class="pill">Truthfulness</span><span class="pill">Wisdom</span><span class="pill">Actualization</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Requires</span></div>
+                        <span class="outline-content"><span class="pill">Outcomes</span><span class="pill">Evidence</span><span class="pill">Self-Examination</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Uses</span></div>
+                        <span class="outline-content"><span class="pill">Feedback</span><span class="pill">Learning</span><span class="pill">Adaptation</span><span class="pill">Deliberate Practice</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Pipeline</span></div>
+                        <span class="outline-content">Evaluate Outcomes <span class="arrow">→</span> Identify Errors <span class="arrow">→</span> Update Beliefs <span class="arrow">→</span> Refine Strategies <span class="arrow">→</span> Reinforce Effective Practices</span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Produces</span></div>
+                        <span class="outline-content"><span class="pill">Improved Perception</span><span class="pill">Improved Reasoning</span><span class="pill">Improved Self-Regulation</span><span class="pill">Improved Identity</span><span class="pill">Improved Action</span></span>
+                    </li>
+                    <li>
+                        <div class="diamond-label"><span class="diamond">◇</span><span class="outline-label">Feeds Into</span></div>
+                        <span class="outline-content feeds-into"><strong>Perception</strong> <span class="arrow">•</span> <strong>Reasoning</strong> <span class="arrow">•</span> <strong>Self-Regulation</strong> <span class="arrow">•</span> <strong>Identity</strong> <span class="arrow">•</span> <strong>Action</strong></span>
+                    </li>
+                </ul>
+            </article>
+        </div>
+    </div>
+</body>
+</html>
