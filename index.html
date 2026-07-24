@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specification Framework</title>
+    <style>
+        :root {
+            --bg-dark: #0a0c10;
+            --card-bg: #121620;
+            --text-main: #f0f4f8;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            
+            /* Section Color Coding */
+            --color-framework: #38bdf8;  /* Sky Blue */
+            --color-perception: #a78bfa; /* Purple */
+            --color-reasoning: #34d399;  /* Emerald */
+            --color-regulation: #f43f5e; /* Rose */
+            --color-identity: #fbbf24;   /* Amber */
+            --color-action: #fb923c;     /* Orange */
+            --color-adaptive: #2dd4bf;   /* Teal */
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            color: var(--color-framework);
+            font-size: 2.75rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            margin-bottom: 10px;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        section:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Section Specific Theme Colors & Inheritances */
+        
+        .sec-framework { 
+            --section-color: var(--color-framework); 
+            border-left: 5px solid var(--color-framework);
+        }
+        .sec-perception { 
+            --section-color: var(--color-perception); 
+            border-left: 5px solid var(--color-perception);
+        }
+        .sec-reasoning { 
+            --section-color: var(--color-reasoning); 
+            border-left: 5px solid var(--color-reasoning);
+        }
+        .sec-regulation { 
+            --section-color: var(--color-regulation); 
+            border-left: 5px solid var(--color-regulation);
+        }
+        .sec-identity { 
+            --section-color: var(--color-identity); 
+            border-left: 5px solid var(--color-identity);
+        }
+        .sec-action { 
+            --section-color: var(--color-action); 
+            border-left: 5px solid var(--color-action);
+        }
+        .sec-adaptive { 
+            --section-color: var(--color-adaptive); 
+            border-left: 5px solid var(--color-adaptive);
+        }
+
+        section h1, section h2 {
+            color: var(--section-color);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        section h3 {
+            color: var(--section-color);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 20px 0 10px 0;
+        }
+
+        p, li, td, th {
+            color: var(--text-main);
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 30px 0;
+        }
+
+        strong {
+            color: var(--section-color);
+            font-weight: 600;
+        }
+
+        /* Tables and Glossary Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.03);
+            font-size: 1.1rem;
+        }
+
+        /* Flow / Execution Loop styling */
+        .execution-loop-text {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            margin: 15px 0;
+            color: var(--section-color);
+            word-break: break-word;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            section {
+                padding: 20px;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Specification Framework</h1>
+    </header>
+
+    <!-- SECTION: Framework Core & Loop -->
+    <section class="sec-framework">
+        <h2>Primary Objective</h2>
+        <p>Preserve the integrity of: <strong>Perception</strong>, <strong>Reasoning</strong>, <strong>Self-Regulation</strong>, <strong>Identity</strong>, and <strong>Action</strong></p>
+        <p>Under conditions of: Uncertainty, Emotional Intensity, Cognitive Load, Time Constraints, and Consequences.</p>
+
+        <hr>
+
+        <h2>Framework Execution Loop</h2>
+        <p><strong>Execution Loop</strong></p>
+        <div class="execution-loop-text">Evidence ⟶ Perception ⟶ Reasoning ⟶ Decision ⟶ Action ⟶ Outcome ⟶ Feedback ⟶ Updated Capability ⟶ Repeat</div>
+        
+        <p><strong>Within the loop:</strong> Identity remains stable.</p>
+        <p><strong>Continuous update:</strong> Capability continuously updates through feedback.</p>
+
+        <hr>
+
+        <table>
+            <tr>
+                <th><strong>0. Glossary</strong></th>
+            </tr>
+            <tr>
+                <td><strong>Truthfulness</strong> — Alignment of beliefs, representations, and actions with reality as best understood.<br><br><strong>Justice</strong> — Consistent application of fairness, responsibility, and accountability according to objective standards.<br><br><strong>Compassion</strong> — Recognition of suffering coupled with a commitment to reduce unnecessary harm while preserving responsibility.<br><br><strong>Wisdom</strong> — Disciplined application of knowledge, experience, and judgment toward beneficial action.<br><br><strong>Coherence</strong> — Logical consistency among beliefs, values, reasoning, identity, and behavior.<br><br><strong>Actualization</strong> — Continual realization and development of one's highest capacities through intentional growth.<br><br><strong>Incorruptibility</strong> — Resistance to influences that compromise truth, integrity, judgment, or moral character.</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- SECTION I: Perception -->
+    <section class="sec-perception">
+        <h2>I. Perception</h2>
+        <p><strong>Definition:</strong> Acquisition and interpretation of information about reality. ◇ <strong>Governed By:</strong> Truthfulness • Wisdom ◇ <strong>Requires:</strong> Attention • Observation • Curiosity ◇ <strong>Uses:</strong> Credibility Calibration • Belief Updating • Stress & Bias Mitigation ◇ <strong>Processes:</strong> Observe → Compare Sources → Evaluate Credibility → Detect Bias → Update Beliefs ◇ <strong>Produces:</strong> Evidence • Situational Awareness • Updated Beliefs ◇ <strong>Feeds Into:</strong> Reasoning.</p>
+    </section>
+
+    <!-- SECTION II: Reasoning -->
+    <section class="sec-reasoning">
+        <h2>II. Reasoning</h2>
+        <p><strong>Definition:</strong> Evaluation and integration of information to produce justified conclusions. ◇ <strong>Governed By:</strong> Truthfulness • Wisdom • Coherence • Incorruptibility ◇ <strong>Requires:</strong> Evidence • Updated Beliefs • Context ◇ <strong>Uses:</strong> Robust Evaluation • Uncorrupted Judgment • Contextual Empathy ◇ <strong>Processes:</strong> Interpret → Analyze → Compare → Test Assumptions → Integrate Context → Form Conclusions ◇ <strong>Produces:</strong> Understanding • Decisions • Intentions ◇ <strong>Feeds Into:</strong> Self-Regulation • Action.</p>
+    </section>
+
+    <!-- SECTION III: Self-Regulation -->
+    <section class="sec-regulation">
+        <h2>III. Self-Regulation</h2>
+        <p><strong>Definition:</strong> Management of thoughts, emotions, and behavior in service of principled action. ◇ <strong>Governed By:</strong> Wisdom • Compassion • Actualization ◇ <strong>Requires:</strong> Self-Awareness • Reflection • Reasoning ◇ <strong>Uses:</strong> Grounded Awareness • Acceptance & Recovery • Calibrated Stress Response ◇ <strong>Processes:</strong> Monitor → Regulate Emotion → Recover → Recalibrate ◇ <strong>Produces:</strong> Emotional Stability • Resilience • Behavioral Readiness ◇ <strong>Feeds Into:</strong> Identity • Action.</p>
+    </section>
+
+    <!-- SECTION IV: Identity -->
+    <section class="sec-identity">
+        <h2>IV. Identity</h2>
+        <p><strong>Definition:</strong> Integrated and enduring organization of one's beliefs, values, character, and self-concept. ◇ <strong>Governed By:</strong> Coherence • Compassion • Incorruptibility ◇ <strong>Requires:</strong> Reflection • Experience • Self-Regulation ◇ <strong>Uses:</strong> Anchored Self-Worth • Calibrated Confidence • Failure as Feedback ◇ <strong>Processes:</strong> Reflect → Integrate Experience → Align Values → Preserve Integrity ◇ <strong>Produces:</strong> Stable Identity • Principled Character ◇ <strong>Feeds Into:</strong> Action.</p>
+    </section>
+
+    <!-- SECTION V: Action -->
+    <section class="sec-action">
+        <h2>V. Action</h2>
+        <p><strong>Definition:</strong> Intentional execution of decisions within the external world. ◇ <strong>Governed By:</strong> Truthfulness • Wisdom • Coherence • Actualization ◇ <strong>Requires:</strong> Decisions • Stable Identity • Self-Regulation ◇ <strong>Uses:</strong> Strategic Focus • Sustainable Persistence • Flexible Commitment ◇ <strong>Processes:</strong> Plan → Prioritize → Execute → Monitor Outcomes → Adjust Strategy ◇ <strong>Produces:</strong> Outcomes • Experience • Consequences ◇ <strong>Feeds Into:</strong> Adaptive Performance.</p>
+    </section>
+
+    <!-- SECTION VI: Adaptive Performance -->
+    <section class="sec-adaptive">
+        <h2>VI. Adaptive Performance</h2>
+        <p><strong>Definition:</strong> Sustaining and improving effective performance through evidence, reflection, learning, and adaptation. ◇ <strong>Governed By:</strong> Truthfulness • Wisdom • Actualization ◇ <strong>Requires:</strong> Outcomes • Evidence • Reflection ◇ <strong>Uses:</strong> Feedback • Learning • Adaptation • Deliberate Practice ◇ <strong>Processes:</strong> Evaluate Outcomes → Identify Errors → Update Beliefs → Refine Strategies → Reinforce Effective Practices ◇ <strong>Produces:</strong> Improved Perception • Improved Reasoning • Improved Self-Regulation • Improved Identity • Improved Action ◇ <strong>Feeds Into:</strong> Perception • Reasoning • Self-Regulation • Identity • Action.</p>
+    </section>
+
+</div>
+
+</body>
+</html>
