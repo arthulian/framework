@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Framework]</title>
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-card: #111118;
+            --bg-card-hover: #161620;
+            --text-primary: #e8e8f0;
+            --text-secondary: #a0a0b8;
+            --text-muted: #6b6b80;
+            --border-subtle: #1e1e2e;
+
+            --c-perception: #22d3ee;
+            --c-cognitive-integrity: #f59e0b;
+            --c-selfreg: #34d399;
+            --c-identity: #c084fc;
+            --c-action: #fb7185;
+            --c-adaptive: #60a5fa;
+
+            --bg-perception: rgba(34, 211, 238, 0.06);
+            --bg-cognitive-integrity: rgba(245, 158, 11, 0.06);
+            --bg-selfreg: rgba(52, 211, 153, 0.06);
+            --bg-identity: rgba(192, 132, 252, 0.06);
+            --bg-action: rgba(251, 113, 133, 0.06);
+            --bg-adaptive: rgba(96, 165, 250, 0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding: 32px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .page-header h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .page-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 720px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .page-header .subtitle ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        .page-header .subtitle li {
+            display: inline-block;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        .section-header {
+            margin: 48px 0 24px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        .method-domain {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .method-domain:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        .method-domain::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+        }
+
+        .domain-perception::before { background: var(--c-perception); box-shadow: 0 0 20px var(--c-perception); }
+        .domain-cognitive-integrity::before { background: var(--c-cognitive-integrity); box-shadow: 0 0 20px var(--c-cognitive-integrity); }
+        .domain-selfreg::before { background: var(--c-selfreg); box-shadow: 0 0 20px var(--c-selfreg); }
+        .domain-identity::before { background: var(--c-identity); box-shadow: 0 0 20px var(--c-identity); }
+        .domain-action::before { background: var(--c-action); box-shadow: 0 0 20px var(--c-action); }
+
+        .domain-perception { background: linear-gradient(180deg, var(--bg-perception) 0%, var(--bg-card) 100px); }
+        .domain-cognitive-integrity { background: linear-gradient(180deg, var(--bg-cognitive-integrity) 0%, var(--bg-card) 100px); }
+        .domain-selfreg { background: linear-gradient(180deg, var(--bg-selfreg) 0%, var(--bg-card) 100px); }
+        .domain-identity { background: linear-gradient(180deg, var(--bg-identity) 0%, var(--bg-card) 100px); }
+        .domain-action { background: linear-gradient(180deg, var(--bg-action) 0%, var(--bg-card) 100px); }
+
+        .method-domain h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 0.01em;
+            border-bottom: 1px dashed var(--border-subtle);
+            padding-bottom: 10px;
+        }
+
+        .domain-perception h3 { color: var(--c-perception); }
+        .domain-cognitive-integrity h3 { color: var(--c-cognitive-integrity); }
+        .domain-selfreg h3 { color: var(--c-selfreg); }
+        .domain-identity h3 { color: var(--c-identity); }
+        .domain-action h3 { color: var(--c-action); }
+
+        .method-item { margin-bottom: 20px; }
+        .method-item:last-child { margin-bottom: 0; }
+
+        .method-item h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .method-item ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .method-item li { margin-bottom: 4px; }
+
+        .embodies {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .embodies-label {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+        }
+
+        .glossary {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 40px;
+        }
+
+        .glossary h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            letter-spacing: 0.02em;
+        }
+
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px 24px;
+        }
+
+        .glossary-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .glossary-item .term {
+            font-weight: 700;
+            color: #f0c674;
+            white-space: nowrap;
+        }
+
+        .glossary-item .def {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+        }
+
+        .card-perception::before { background: var(--c-perception); box-shadow: 0 0 20px var(--c-perception); }
+        .card-cognitive-integrity::before { background: var(--c-cognitive-integrity); box-shadow: 0 0 20px var(--c-cognitive-integrity); }
+        .card-selfreg::before { background: var(--c-selfreg); box-shadow: 0 0 20px var(--c-selfreg); }
+        .card-identity::before { background: var(--c-identity); box-shadow: 0 0 20px var(--c-identity); }
+        .card-action::before { background: var(--c-action); box-shadow: 0 0 20px var(--c-action); }
+        .card-adaptive::before { background: var(--c-adaptive); box-shadow: 0 0 20px var(--c-adaptive); }
+
+        .card-perception { background: linear-gradient(180deg, var(--bg-perception) 0%, var(--bg-card) 120px); }
+        .card-cognitive-integrity { background: linear-gradient(180deg, var(--bg-cognitive-integrity) 0%, var(--bg-card) 120px); }
+        .card-selfreg { background: linear-gradient(180deg, var(--bg-selfreg) 0%, var(--bg-card) 120px); }
+        .card-identity { background: linear-gradient(180deg, var(--bg-identity) 0%, var(--bg-card) 120px); }
+        .card-action { background: linear-gradient(180deg, var(--bg-action) 0%, var(--bg-card) 120px); }
+        .card-adaptive { background: linear-gradient(180deg, var(--bg-adaptive) 0%, var(--bg-card) 120px); }
+
+        .card-header {
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .card-header .roman {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            margin-bottom: 4px;
+        }
+
+        .card-header .definition {
+            margin-top: 8px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .card-perception .roman { color: var(--c-perception); }
+        .card-cognitive-integrity .roman { color: var(--c-cognitive-integrity); }
+        .card-selfreg .roman { color: var(--c-selfreg); }
+        .card-identity .roman { color: var(--c-identity); }
+        .card-action .roman { color: var(--c-action); }
+        .card-adaptive .roman { color: var(--c-adaptive); }
+
+        .outline {
+            list-style: none;
+            padding: 0;
+        }
+
+        .outline > li {
+            margin-bottom: 14px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px;
+            align-items: start;
+        }
+
+        .diamond-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        .diamond {
+            font-size: 0.9em;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .card-perception .diamond { color: var(--c-perception); }
+        .card-cognitive-integrity .diamond { color: var(--c-cognitive-integrity); }
+        .card-selfreg .diamond { color: var(--c-selfreg); }
+        .card-identity .diamond { color: var(--c-identity); }
+        .card-action .diamond { color: var(--c-action); }
+        .card-adaptive .diamond { color: var(--c-adaptive); }
+
+        .outline-label {
+            font-weight: 700;
+            min-width: 110px;
+        }
+
+        .card-perception .outline-label { color: var(--c-perception); }
+        .card-cognitive-integrity .outline-label { color: var(--c-cognitive-integrity); }
+        .card-selfreg .outline-label { color: var(--c-selfreg); }
+        .card-identity .outline-label { color: var(--c-identity); }
+        .card-action .outline-label { color: var(--c-action); }
+        .card-adaptive .outline-label { color: var(--c-adaptive); }
+
+        .outline-content {
+            color: var(--text-secondary);
+            padding-top: 1px;
+        }
+
+        .outline-content .arrow {
+            color: var(--text-muted);
+            margin: 0 4px;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            margin-right: 2px;
+            margin-bottom: 4px;
+            border: 1px solid rgba(232, 232, 240, 0.15);
+            background: rgba(232, 232, 240, 0.08);
+            color: var(--text-primary);
+        }
+
+        .feeds-into {
+            margin-top: 4px;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        .feeds-into strong {
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .card-perception .feeds-into strong { color: var(--c-perception); }
+        .card-cognitive-integrity .feeds-into strong { color: var(--c-cognitive-integrity); }
+        .card-selfreg .feeds-into strong { color: var(--c-selfreg); }
+        .card-identity .feeds-into strong { color: var(--c-identity); }
+        .card-action .feeds-into strong { color: var(--c-action); }
+        .card-adaptive .feeds-into strong { color: var(--c-adaptive); }
+
+        @media (max-width: 640px) {
+            .container { padding: 20px 16px; }
+            .page-header h1 { font-size: 1.7rem; }
+            .card { padding: 24px; }
+            
+            .outline > li { grid-template-columns: 1fr; gap: 4px; }
+            .outline-content { padding-top: 0; }
+            .glossary-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1>Framework</h1>
+            <div class="subtitle">
+                <strong>Primary Objective</strong>
+                <ul>
+                    <li>&bull; To regulate the integrity of perception, self-concept, cognition, and principled action, under high-pressure conditions.</li>
+                </ul>
+            </div>
+        </header>
+
+        <!-- I. Method Library -->
+        <section class="section">
+            <div class="section-header">
+                <h2>I. Method Library</h2>
+            </div>
+
+            <!-- Section 1 -->
+            <div class="method-domain domain-perception">
+                <h3>1. Perceptual Integrity</h3>
+                
+                <div class="method-item">
+                    <h4>Reality-Tested Credibility:</h4>
+                    <ul>
+                        <li>Anchor claims in time-tested reliability.</li>
+                        <li>Reduce confidence when predictions fail.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Truthfulness</span>, <span class="pill">Wisdom</span>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <h4>Belief Updating:</h4>
+                    <ul>
+                        <li>Adjust the strength of your beliefs (confidence) in proportion to the available evidence.</li>
+                        <li>Distinguish between observation, inference, and claims.</li>
+                        <li>Prioritize empirical accuracy over maintaining an interpretive narrative.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Truthfulness</span>, <span class="pill">Coherence</span>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <h4>Bias Mitigation:</h4>
+                    <ul>
+                        <li>Consider allocentric perspectives before making judgments.</li>
+                        <li>Use counterfactual 'What ifs' to reconcile facts with feelings.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Incorruptibility</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="method-domain domain-cognitive-integrity">
+                <h3>2. Cognitive Integrity</h3>
+                
+                <div class="method-item">
+                    <h4>Mirror-Testing the Strongest Case:</h4>
+                    <ul>
+                        <li>Steelman opposing positions before reaching conclusions.</li>
+                        <li>Reject conclusions that cannot withstand those strongest counterarguments.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Wisdom</span>, <span class="pill">Truthfulness</span>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <h4>Impartiality and Objectivity:</h4>
+                    <ul>
+                        <li>Prioritize factual accuracy over self-justification.</li>
+                        <li>Apply consistent standards of verification.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Incorruptibility</span>, <span class="pill">Justice</span>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <h4>Contextual Intent:</h4>
+                    <ul>
+                        <li>Evaluate both intent and consequences within their situational context.</li>
+                        <li>Balance between situational understanding and personal accountability.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Justice</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="method-domain domain-selfreg">
+                <h3>3. Emotional Regulation</h3>
+                
+                <div class="method-item">
+                    <h4>Grounded Awareness:</h4>
+                    <ul>
+                        <li>Maintain an observer perspective.</li>
+                        <li>Tag thoughts and emotions as transient data rather than components of the self.</li>
+                        <li>Reduce emotional interference without invalidating emotion.</li>
+                        <li>Choose deliberate responses instead of impulsive reactions.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Wisdom</span>, <span class="pill">Actualization</span>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <h4>Acceptance and Recovery:</h4>
+                    <ul>
+                        <li>Recognize vulnerability as universal.</li>
+                        <li>Accept present limitations in order to enable adaptation.</li>
+                        <li>View planned recovery as essential for sustained performance.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Justice</span>, <span class="pill">Actualization</span>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <h4>Stress Response:</h4>
+                    <ul>
+                        <li>Under high pressure, disengage through healthy boundaries.</li>
+                        <li>Under moderate pressure, use controlled exposure to build resilience.</li>
+                        <li>Increase challenge gradually as capacity grows.</li>
+                        <li>Match challenge level to current capability.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Actualization</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="method-domain domain-identity">
+                <h3>4. Self-Concept</h3>
+                
+                <div class="method-item">
+                    <h4>Self-Worth:</h4>
+                    <ul>
+                        <li>Base intrinsic self-worth on the deliberate development of moral character.</li>
+                        <li>Reject self-worth based on praise or criticism that comes from defensive competence or performative self-sufficiency.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Coherence</span>, <span class="pill">Incorruptibility</span>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <h4>Empirical Confidence:</h4>
+                    <ul>
+                        <li>Define confidence as a measure of validated competence.</li>
+                        <li>Base confidence on outcomes produced by deliberate effort.</li>
+                        <li>Align confidence to reality using verifiable feedback.</li>
+                        <li>Use increased confidence to tackle progressively harder challenges.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Truthfulness</span>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <h4>Setbacks as Skill Feedback:</h4>
+                    <ul>
+                        <li>Treat setbacks as evidence of skill deficits rather than diminished self-worth.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Justice</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="method-domain domain-action">
+                <h3>5. Adaptive Action</h3>
+                
+                <div class="method-item">
+                    <h4>Strategic Focus:</h4>
+                    <ul>
+                        <li>Direct effort toward opportunities with the greatest expected utility in advancing your overarching purpose.</li>
+                        <li>Avoid the illusion of total control.</li>
+                        <li>Avoid allowing sunk costs to influence future decisions.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Wisdom</span>, <span class="pill">Actualization</span>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <h4>Sustainable Persistence:</h4>
+                    <ul>
+                        <li>Build perseverance through gradual exposure.</li>
+                        <li>Balance persistence with self-kindness to prevent burnout.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Coherence</span>, <span class="pill">Justice</span>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <h4>Dynamic Execution:</h4>
+                    <ul>
+                        <li>Maintain commitment to long-term purpose while remaining flexible in execution.</li>
+                    </ul>
+                    <div class="embodies">
+                        <span class="embodies-label">Embodies:</span>
+                        <span class="pill">Coherence</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Six Values -->
+            <section class="glossary">
+                <h3>The Six Values Embodying the Methods</h3>
+                <div class="glossary-grid">
+                    <div class="glossary-item">
+                        <span class="term">&bull; Truthfulness:</span>
+                        <span class="def">Align beliefs, representations, and actions with reality as best understood.</span>
+                    </div>
+                    <div class="glossary-item">
+                        <span class="term">&bull; Justice/Fairness:</span>
+                        <span class="def">Contextually weighs between a person's intent and the consequences of his actions.</span>
+                    </div>
+                    <div class="glossary-item">
+                        <span class="term">&bull; Wisdom:</span>
+                        <span class="def">Apply knowledge, experience, and judgment toward beneficial action.</span>
+                    </div>
+                    <div class="glossary-item">
+                        <span class="term">&bull; Coherence:</span>
+                        <span class="def">Maintain cognitive integrity by ensuring logical consistency among your beliefs, values, self-concept, and behavior.</span>
+                    </div>
+                    <div class="glossary-item">
+                        <span class="term">&bull; Actualization:</span>
+                        <span class="def">Continually develop one's highest capacities through intentional growth.</span>
+                    </div>
+                    <div class="glossary-item">
+                        <span class="term">&bull; Incorruptibility:</span>
+                        <span class="def">Resist influences that compromise truth, judgment, integrity, or moral character.</span>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- II. Functional System -->
+        <section class="section">
+            <div class="section-header">
+                <h2>II. Functional System</h2>
+            </div>
+
+            <div class="cards-grid">
+                <article class="card card-perception">
+                    <div class="card-header">
+                        <div class="roman">I. Perception</div>
+                        <p class="definition">Acquire and interpret information.</p>
+                    </div>
+                    <ul class="outline">
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Guided By</span></div>
+                            <span class="outline-content"><span class="pill">Truthfulness</span>, <span class="pill">Wisdom</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Requires</span></div>
+                            <span class="outline-content"><span class="pill">Reality-Tested Credibility</span>, <span class="pill">Observation</span>, <span class="pill">Belief Updating</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Uses</span></div>
+                            <span class="outline-content"><span class="pill">Reality-Tested Credibility</span>, <span class="pill">Belief Updating</span>, <span class="pill">Bias Mitigation</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Pipeline</span></div>
+                            <span class="outline-content">Observe <span class="arrow">&rarr;</span> Compare sources <span class="arrow">&rarr;</span> Evaluate credibility <span class="arrow">&rarr;</span> Detect bias <span class="arrow">&rarr;</span> Update beliefs</span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Feeds Into</span></div>
+                            <span class="outline-content feeds-into"><strong>Cognitive Integrity</strong></span>
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="card card-cognitive-integrity">
+                    <div class="card-header">
+                        <div class="roman">II. Cognitive Integrity</div>
+                        <p class="definition">Evaluate and integrate information to produce justified conclusions.</p>
+                    </div>
+                    <ul class="outline">
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Guided By</span></div>
+                            <span class="outline-content"><span class="pill">Truthfulness</span>, <span class="pill">Wisdom</span>, <span class="pill">Coherence</span>, <span class="pill">Justice</span>, <span class="pill">Incorruptibility</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Requires</span></div>
+                            <span class="outline-content"><span class="pill">Evidence</span>, <span class="pill">Belief Updating</span>, <span class="pill">Contextual Intent</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Uses</span></div>
+                            <span class="outline-content"><span class="pill">Mirror-Testing the Strongest Case</span>, <span class="pill">Objectivity and Impartiality</span>, <span class="pill">Contextual Intent</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Pipeline</span></div>
+                            <span class="outline-content">Interpret <span class="arrow">&rarr;</span> Analyze <span class="arrow">&rarr;</span> Compare <span class="arrow">&rarr;</span> Evaluate impartially <span class="arrow">&rarr;</span> Test assumptions <span class="arrow">&rarr;</span> Integrate context <span class="arrow">&rarr;</span> Form conclusions</span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Feeds Into</span></div>
+                            <span class="outline-content feeds-into"><strong>Emotional Regulation</strong> <span class="arrow">&bull;</span> <strong>Action</strong></span>
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="card card-selfreg">
+                    <div class="card-header">
+                        <div class="roman">III. Emotional Regulation</div>
+                        <p class="definition">Manage thoughts, emotions, and behavior in service of principled action.</p>
+                    </div>
+                    <ul class="outline">
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Guided By</span></div>
+                            <span class="outline-content"><span class="pill">Wisdom</span>, <span class="pill">Justice</span>, <span class="pill">Actualization</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Requires</span></div>
+                            <span class="outline-content"><span class="pill">Grounded Awareness</span>, <span class="pill">Self-Examination</span>, <span class="pill">Cognitive Integrity</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Uses</span></div>
+                            <span class="outline-content"><span class="pill">Grounded Awareness</span>, <span class="pill">Acceptance and Recovery</span>, <span class="pill">Stress Response</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Pipeline</span></div>
+                            <span class="outline-content">Monitor <span class="arrow">&rarr;</span> Regulate emotion <span class="arrow">&rarr;</span> Recover <span class="arrow">&rarr;</span> Recalibrate</span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Feeds Into</span></div>
+                            <span class="outline-content feeds-into"><strong>Self-Concept</strong> <span class="arrow">&bull;</span> <strong>Action</strong></span>
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="card card-identity">
+                    <div class="card-header">
+                        <div class="roman">IV. Self-Concept</div>
+                        <p class="definition">Integrate beliefs, values, and character into a stable self-concept.</p>
+                    </div>
+                    <ul class="outline">
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Guided By</span></div>
+                            <span class="outline-content"><span class="pill">Coherence</span>, <span class="pill">Justice</span>, <span class="pill">Incorruptibility</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Requires</span></div>
+                            <span class="outline-content"><span class="pill">Self-Examination</span>, <span class="pill">Updated Capability</span>, <span class="pill">Emotional Regulation</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Uses</span></div>
+                            <span class="outline-content"><span class="pill">Self-Worth</span>, <span class="pill">Empirical Confidence</span>, <span class="pill">Failure as Skill Feedback</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Pipeline</span></div>
+                            <span class="outline-content">Self-examine <span class="arrow">&rarr;</span> Integrate experience <span class="arrow">&rarr;</span> Align values <span class="arrow">&rarr;</span> Preserve integrity</span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Feeds Into</span></div>
+                            <span class="outline-content feeds-into"><strong>Action</strong></span>
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="card card-action">
+                    <div class="card-header">
+                        <div class="roman">V. Action</div>
+                        <p class="definition">Execute reasoned and principled decisions in the real world.</p>
+                    </div>
+                    <ul class="outline">
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Guided By</span></div>
+                            <span class="outline-content"><span class="pill">Truthfulness</span>, <span class="pill">Wisdom</span>, <span class="pill">Coherence</span>, <span class="pill">Actualization</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Requires</span></div>
+                            <span class="outline-content"><span class="pill">Cognitive Integrity</span>, <span class="pill">Stable Self-Concept</span>, <span class="pill">Emotional Regulation</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Uses</span></div>
+                            <span class="outline-content"><span class="pill">Strategic Focus</span>, <span class="pill">Sustainable Persistence</span>, <span class="pill">Dynamic Execution</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Pipeline</span></div>
+                            <span class="outline-content">Plan <span class="arrow">&rarr;</span> Prioritize <span class="arrow">&rarr;</span> Execute <span class="arrow">&rarr;</span> Monitor outcomes <span class="arrow">&rarr;</span> Adjust strategy</span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Feeds Into</span></div>
+                            <span class="outline-content feeds-into"><strong>Adaptive Performance</strong></span>
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="card card-adaptive">
+                    <div class="card-header">
+                        <div class="roman">VI. Adaptive Performance</div>
+                        <p class="definition">Sustain and improve performance through evidence, learning, and adaptation.</p>
+                    </div>
+                    <ul class="outline">
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Guided By</span></div>
+                            <span class="outline-content"><span class="pill">Truthfulness</span>, <span class="pill">Wisdom</span>, <span class="pill">Actualization</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Requires</span></div>
+                            <span class="outline-content"><span class="pill">Outcomes (from Action)</span>, <span class="pill">Evidence (from Perception)</span>, <span class="pill">Stable Self-Concept</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Uses</span></div>
+                            <span class="outline-content"><span class="pill">Feedback</span>, <span class="pill">Learning</span>, <span class="pill">Adaptation</span>, <span class="pill">Deliberate Practice</span></span>
+                        </li>
+                        <li>
+                            <div class="diamond-label"><span class="diamond">&diamond;</span><span class="outline-label">Pipeline</span></div>
+                            <span class="outline-content">Evaluate outcomes <span class="arrow">&rarr;</span> Identify errors <span class="arrow">&rarr;</span> Update beliefs <span class="arrow">&rarr;</span> Refine strategies <span class="arrow">&rarr;</span> Reinforce effective practices</span>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
