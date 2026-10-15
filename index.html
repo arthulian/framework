@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[A Model for Epistemic Virtues]</title>
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-card: #111118;
+            --bg-card-hover: #161620;
+            --text-primary: #e8e8f0;
+            --text-secondary: #a0a0b8;
+            --text-muted: #6b6b80;
+            --border-subtle: #1e1e2e;
+
+            --c-perception: #22d3ee;
+            --c-cognitive-integrity: #f59e0b;
+            --c-selfreg: #34d399;
+            --c-identity: #c084fc;
+            --c-action: #fb7185;
+            --c-adaptive: #60a5fa;
+
+            --bg-perception: rgba(34, 211, 238, 0.06);
+            --bg-cognitive-integrity: rgba(245, 158, 11, 0.06);
+            --bg-selfreg: rgba(52, 211, 153, 0.06);
+            --bg-identity: rgba(192, 132, 252, 0.06);
+            --bg-action: rgba(251, 113, 133, 0.06);
+            --bg-adaptive: rgba(96, 165, 250, 0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding: 32px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .page-header h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .page-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 720px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .page-header .subtitle ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        .page-header .subtitle li {
+            display: inline-block;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        .section-header {
+            margin: 48px 0 24px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        .method-domain {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .method-domain:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        .method-domain::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+        }
+
+        .domain-perception::before { background: var(--c-perception); box-shadow: 0 0 20px var(--c-perception); }
+        .domain-cognitive-integrity::before { background: var(--c-cognitive-integrity); box-shadow: 0 0 20px var(--c-cognitive-integrity); }
+        .domain-selfreg::before { background: var(--c-selfreg); box-shadow: 0 0 20px var(--c-selfreg); }
+        .domain-identity::before { background: var(--c-identity); box-shadow: 0 0 20px var(--c-identity); }
+        .domain-action::before { background: var(--c-action); box-shadow: 0 0 20px var(--c-action); }
+
+        .domain-perception { background: linear-gradient(180deg, var(--bg-perception) 0%, var(--bg-card) 100px); }
+        .domain-cognitive-integrity { background: linear-gradient(180deg, var(--bg-cognitive-integrity) 0%, var(--bg-card) 100px); }
+        .domain-selfreg { background: linear-gradient(180deg, var(--bg-selfreg) 0%, var(--bg-card) 100px); }
+        .domain-identity { background: linear-gradient(180deg, var(--bg-identity) 0%, var(--bg-card) 100px); }
+        .domain-action { background: linear-gradient(180deg, var(--bg-action) 0%, var(--bg-card) 100px); }
+
+        .method-domain h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 0.01em;
+            border-bottom: 1px dashed var(--border-subtle);
+            padding-bottom: 10px;
+        }
+
+        .domain-perception h3 { color: var(--c-perception); }
+        .domain-cognitive-integrity h3 { color: var(--c-cognitive-integrity); }
+        .domain-selfreg h3 { color: var(--c-selfreg); }
+        .domain-identity h3 { color: var(--c-identity); }
+        .domain-action h3 { color: var(--c-action); }
+
+        .method-item { margin-bottom: 20px; }
+        .method-item:last-child { margin-bottom: 0; }
+
+        .method-item h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .method-item ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .method-item li { margin-bottom: 4px; }
+
+        .glossary {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 40px;
+        }
+
+        .glossary h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            letter-spacing: 0.02em;
+        }
+
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px 24px;
+        }
+
+        .glossary-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 16px;
+        }
+
+        .glossary-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .glossary-item .term {
+            font-weight: 700;
+            color: #f0c674;
+            white-space: nowrap;
+        }
+
+        .glossary-item .def {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 640px) {
+            .container { padding: 20px 16px; }
+            .page-header h1 { font-size: 1.7rem; }
+            .glossary-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1>[A Model for Epistemic Virtues]</h1>
+        </header>
+
+        <!-- I. Method Library -->
+        <section class="section">
+            <div class="section-header">
+                <h2>I. Principles and Disciplines</h2>
+            </div>
+
+            <!-- Section 1 -->
+            <div class="method-domain domain-perception">
+                <h3>1. Epistemic Integrity</h3>
+                
+                <div class="method-item">
+                    <h4>Mirror-Testing the Strongest Case:</h4>
+                    <ul>
+                        <li>Steelman each opposing argument into its most strongest version.</li>
+                        <li>Isolate the core criteria driving this refined argument, and reject the original argument's conclusion if it fails to survive that isolated criteria.</li>
+                    </ul>
+                </div>
+
+                <div class="method-item">
+                    <h4>Impartial Objectivity:</h4>
+                    <ul>
+                        <li>Derive your conclusions directly from evidence-driven inferences rather than assumptions or projected narratives, and practice the golden rule of applying the same empirical standards to all claims.</li>
+                    </ul>
+                </div>
+
+                <div class="method-item">
+                    <h4>Impartial Responsibility:</h4>
+                    <ul>
+                        <li>Distinguish between genuine caring and ego-driven caretaking, by auditing your motives against objective standards while remaining mindful of your own constraints.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="method-domain domain-cognitive-integrity">
+                <h3>2. Emotional Regulation</h3>
+                
+                <div class="method-item">
+                    <h4>Ego Decoupling:</h4>
+                    <ul>
+                        <li>Treat your mental and emotional states as data points that inform your current state, not as directives that define you.</li>
+                        <li>Set personal boundaries to create a space that allows you to choose rational responses instead of reacting with compulsive patterns. People-pleasing and controlling behaviors are compulsions caused by a lack of self-trust.</li>
+                    </ul>
+                </div>
+
+                <div class="method-item">
+                    <h4>Acceptance and Recovery:</h4>
+                    <ul>
+                        <li>Accept that sometimes you need to rely on the support of others or society, by dropping the pretense invulnerability and lowering your guard.</li>
+                        <li>Treat planned recovery and rest as an essential maintenance needed for sustained performance.</li>
+                    </ul>
+                </div>
+
+                <div class="method-item">
+                    <h4>Stress Responses:</h4>
+                    <ul>
+                        <li>Under overwhelming pressure, set healthy boundaries and disengage. That is survival, not avoidance.</li>
+                        <li>Under mild/moderate pressure, use a controlled exposure to gradually reassess threats as manageable challenges in order to expand your tolerance window.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="method-domain domain-selfreg">
+                <h3>3. Self-Concept</h3>
+                
+                <div class="method-item">
+                    <h4>Self-Worth:</h4>
+                    <ul>
+                        <li>Your inalienable dignity comes from your disposition to seek noble pursuits, utilizing your capacity to deliberate so that you may soundly commit to epistemic virtues.</li>
+                        <li>Self-sufficiency, when purely defensive, is just counterdependence dressed up as strength, still hinging on external approval.</li>
+                        <li>Develop a growth mindset by treating setbacks as skill-deficits rather than personal flaws. They are feedback not condemnation.</li>
+                    </ul>
+                </div>
+
+                <div class="method-item">
+                    <h4>Self-Confidence Loop:</h4>
+                    <ul>
+                        <li>A. Base your confidence on the verifiable achievements of your deliberate efforts.</li>
+                        <li>B. Measure confidence in proportion to that proven competence.</li>
+                        <li>C. Update confidence in your competence whenever new evidence warrants it.</li>
+                        <li>D. Use your increased confidence to progressively tackle harder challenges.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="method-domain domain-identity">
+                <h3>4. Sustainable Action</h3>
+                
+                <div class="method-item">
+                    <h4>Situational Analysis:</h4>
+                    <ul>
+                        <li>Identify how circumstances distort judgment by using counterfactual simulations to separate objective facts from the biased presuppositions stacked on top.</li>
+                    </ul>
+                </div>
+
+                <div class="method-item">
+                    <h4>Strategic Focus:</h4>
+                    <ul>
+                        <li>When cognitive overload builds up, shed non-essential variables and mental clutter to restore your focus on your basic needs, to prevent burning out later.</li>
+                        <li>Avoid the illusion of always being in control by recognizing that some situations are contingent on external forces or on other people's choices.</li>
+                        <li>Don't allow sunk costs to influence future decisions.</li>
+                    </ul>
+                </div>
+
+                <div class="method-item">
+                    <h4>Sustainable Perseverance:</h4>
+                    <ul>
+                        <li>Fear-driven avoidance kills momentum. Ground your persistence in the safety of self-acceptance to build momentum.</li>
+                        <li>Build resilience through a process of gradual controlled exposure.</li>
+                        <li>Maintain commitment to long-term purpose and personal values, while remaining adaptable in execution.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- II. Four Epistemic Virtues -->
+        <section class="section">
+            <div class="section-header">
+                <h2>II. Four Epistemic Virtues that are embodied in this model</h2>
+            </div>
+            
+            <div class="glossary">
+                <div class="glossary-item">
+                    <span class="term">&bull; Truthfulness:</span>
+                    <span class="def">Conform beliefs, representations, and actions to objective reality as best understood.</span>
+                </div>
+                <div class="glossary-item">
+                    <span class="term">&bull; Accountability:</span>
+                    <span class="def">Own the consequences of your beliefs and conclusions proportionally to your knowledge, constraints, and intent, actively revising them when new evidence warrants.</span>
+                </div>
+                <div class="glossary-item">
+                    <span class="term">&bull; Coherence:</span>
+                    <span class="def">Consistently align behavior with values, beliefs with evidence, and self-concept with empirical reality.</span>
+                </div>
+                <div class="glossary-item">
+                    <span class="term">&bull; Incorruptibility:</span>
+                    <span class="def">Maintain an allegiance to truth and sound judgment, actively withstanding the internal and external pressures that compromise integrity or moral character.</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
