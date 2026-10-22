@@ -225,7 +225,6 @@
             margin-bottom: 8px;
         }
 
-        /* Specific styling for searchable sentence targets */
         .searchable-line {
             margin-bottom: 4px;
         }
@@ -236,14 +235,6 @@
             border-radius: 16px;
             padding: 28px 32px;
             margin-bottom: 40px;
-        }
-
-        .glossary h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 20px;
-            letter-spacing: 0.02em;
         }
 
         .glossary-grid {
@@ -301,13 +292,13 @@
             <button class="filter-btn" data-filter="Virtues">Epistemic Virtues</button>
         </div>
 
-        <!-- I. Method Library -->
-        <section class="section" data-section="library">
+        <!-- Section 1 Container -->
+        <section class="section">
             <div class="section-header">
                 <h2>I. Principles and Disciplines</h2>
             </div>
 
-            <!-- Section 1 -->
+            <!-- Domain 1 -->
             <div class="method-domain domain-perception" data-source="Epistemic">
                 <h3>1. Epistemic Integrity</h3>
                 
@@ -334,7 +325,7 @@
                 </div>
             </div>
 
-            <!-- Section 2 -->
+            <!-- Domain 2 -->
             <div class="method-domain domain-cognitive-integrity" data-source="Emotional">
                 <h3>2. Emotional Regulation</h3>
                 
@@ -363,7 +354,7 @@
                 </div>
             </div>
 
-            <!-- Section 3 -->
+            <!-- Domain 3 -->
             <div class="method-domain domain-selfreg" data-source="Self-Concept">
                 <h3>3. Self-Concept</h3>
                 
@@ -387,7 +378,7 @@
                 </div>
             </div>
 
-            <!-- Section 4 -->
+            <!-- Domain 4 -->
             <div class="method-domain domain-identity" data-source="Sustainable Action">
                 <h3>4. Sustainable Action</h3>
                 
@@ -419,28 +410,27 @@
             </div>
         </section>
 
-        <!-- II. Four Epistemic Virtues -->
-        <section class="section" data-section="virtues">
+        <!-- Section 2 Container -->
+        <section class="section">
             <div class="section-header">
                 <h2>II. Four Epistemic Virtues that are embodied in this model</h2>
             </div>
             
-            <div class="glossary" data-source="Virtues">
-                <h3>Epistemic Virtues</h3>
+            <div class="glossary">
                 <div class="glossary-grid">
-                    <div class="glossary-item searchable-line">
+                    <div class="glossary-item searchable-line" data-source="Virtues">
                         <span class="term">&bull; Truthfulness:</span>
                         <span class="def">Conform beliefs, representations, and behavior to objective reality as best understood.</span>
                     </div>
-                    <div class="glossary-item searchable-line">
+                    <div class="glossary-item searchable-line" data-source="Virtues">
                         <span class="term">&bull; Accountability:</span>
                         <span class="def">Own the consequences of your beliefs and conclusions proportionally to your knowledge, constraints, and intent, actively revising them when new evidence warrants.</span>
                     </div>
-                    <div class="glossary-item searchable-line">
+                    <div class="glossary-item searchable-line" data-source="Virtues">
                         <span class="term">&bull; Coherence:</span>
                         <span class="def">Consistently align behavior with values, beliefs with evidence, and self-concept with empirical reality.</span>
                     </div>
-                    <div class="glossary-item searchable-line">
+                    <div class="glossary-item searchable-line" data-source="Virtues">
                         <span class="term">&bull; Incorruptibility:</span>
                         <span class="def">Persevere in truth and sound judgment, actively withstanding the internal and external pressures that compromise integrity or moral character.</span>
                     </div>
@@ -453,20 +443,30 @@
         const searchInput = document.getElementById('searchInput');
         const filterBtns = document.querySelectorAll('.filter-btn');
         const searchableLines = document.querySelectorAll('.searchable-line');
-        const domains = document.querySelectorAll('[data-source]');
+        const methodItems = document.querySelectorAll('.method-item');
+        const domains = document.querySelectorAll('.method-domain');
+        const sections = document.querySelectorAll('.section');
         const themeToggle = document.getElementById('themeToggle');
 
         let activeFilter = 'all';
 
-        function filterContent() {
-            const query = searchInput.value.toLowerCase();
+        // Normalize spelling variants (e.g. judgement -> judgment)
+        function normalizeText(text) {
+            return text.toLowerCase().replace(/judgement/g, 'judgment');
+        }
 
-            // 1. Filter individual sentences/lines instead of whole cards
+        function filterContent() {
+            const query = normalizeText(searchInput.value.trim());
+
+            // 1. Check each sentence line
             searchableLines.forEach(line => {
-                const text = line.textContent.toLowerCase();
-                // Find the parent domain block to check source category
-                const parentDomain = line.closest('[data-source]');
-                const source = parentDomain ? parentDomain.getAttribute('data-source') : '';
+                const text = normalizeText(line.textContent);
+                
+                let source = line.getAttribute('data-source');
+                if (!source) {
+                    const parentDomain = line.closest('.method-domain');
+                    source = parentDomain ? parentDomain.getAttribute('data-source') : '';
+                }
 
                 const matchesSearch = text.includes(query);
                 const matchesFilter = activeFilter === 'all' || source === activeFilter;
@@ -478,16 +478,33 @@
                 }
             });
 
-            // 2. Clean up: Hide parent domain containers if all their internal lines are hidden
-            domains.forEach(domain => {
-                const visibleLines = domain.querySelectorAll('.searchable-line:not(.hidden)');
-                const source = domain.getAttribute('data-source');
-                const matchesFilter = activeFilter === 'all' || source === activeFilter;
+            // 2. Hide method items (sub-headings) if all their bullet points are hidden
+            methodItems.forEach(item => {
+                const visible = item.querySelectorAll('.searchable-line:not(.hidden)');
+                if (visible.length === 0) {
+                    item.classList.add('hidden');
+                } else {
+                    item.classList.remove('hidden');
+                }
+            });
 
-                if (visibleLines.length === 0 || !matchesFilter) {
+            // 3. Hide domain blocks if all their internal items/lines are hidden
+            domains.forEach(domain => {
+                const visible = domain.querySelectorAll('.searchable-line:not(.hidden)');
+                if (visible.length === 0) {
                     domain.classList.add('hidden');
                 } else {
                     domain.classList.remove('hidden');
+                }
+            });
+
+            // 4. Hide entire section blocks (including <h2> headers) if no visible lines exist inside
+            sections.forEach(sec => {
+                const visible = sec.querySelectorAll('.searchable-line:not(.hidden)');
+                if (visible.length === 0) {
+                    sec.classList.add('hidden');
+                } else {
+                    sec.classList.remove('hidden');
                 }
             });
         }
@@ -517,4 +534,3 @@
     </script>
 </body>
 </html>
-
