@@ -452,18 +452,20 @@
 
         function filterContent() {
             let rawQuery = searchInput.value.trim().toLowerCase();
-            if (rawQuery === '') {
-                queryRegex = null;
-            } else {
-                // Map common spelling variations (e.g., handles judgment <-> judgement interchangeably)
+            let queryRegex = null;
+
+            if (rawQuery !== '') {
+                // Map common spelling variations (judgment <-> judgement)
                 if (rawQuery === 'judgment' || rawQuery === 'judgement') {
                     rawQuery = 'judg[e]?ment';
                 }
 
-                // Create a whole-word regular expression boundary search ($\b$)
                 const escapedQuery = rawQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                // If it contains a custom regex pattern like judg[e]?ment, allow it to unescape safely
-                const pattern = rawQuery.includes('[e]?') ? rawQuery : `\\b${escapedQuery}\\b`;
+                
+                // Using \b[query]\w* allows finding words starting with your search term 
+                // (e.g., "truth" matches "truthfulness"), while preventing mid-word matching 
+                // (e.g., "lie" will not match inside "beliefs").
+                const pattern = rawQuery.includes('[e]?') ? rawQuery + '\\w*' : `\\b${escapedQuery}\\w*`;
                 queryRegex = new RegExp(pattern, 'i');
             }
 
