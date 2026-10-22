@@ -450,17 +450,26 @@
 
         let activeFilter = 'all';
 
-        // Normalize spelling variants (e.g. judgement -> judgment)
-        function normalizeText(text) {
-            return text.toLowerCase().replace(/judgement/g, 'judgment');
-        }
-
         function filterContent() {
-            const query = normalizeText(searchInput.value.trim());
+            let rawQuery = searchInput.value.trim().toLowerCase();
+            if (rawQuery === '') {
+                queryRegex = null;
+            } else {
+                // Map common spelling variations (e.g., handles judgment <-> judgement interchangeably)
+                if (rawQuery === 'judgment' || rawQuery === 'judgement') {
+                    rawQuery = 'judg[e]?ment';
+                }
+
+                // Create a whole-word regular expression boundary search ($\b$)
+                const escapedQuery = rawQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                // If it contains a custom regex pattern like judg[e]?ment, allow it to unescape safely
+                const pattern = rawQuery.includes('[e]?') ? rawQuery : `\\b${escapedQuery}\\b`;
+                queryRegex = new RegExp(pattern, 'i');
+            }
 
             // 1. Check each sentence line
             searchableLines.forEach(line => {
-                const text = normalizeText(line.textContent);
+                const text = line.textContent;
                 
                 let source = line.getAttribute('data-source');
                 if (!source) {
@@ -468,7 +477,7 @@
                     source = parentDomain ? parentDomain.getAttribute('data-source') : '';
                 }
 
-                const matchesSearch = text.includes(query);
+                const matchesSearch = queryRegex === null || queryRegex.test(text);
                 const matchesFilter = activeFilter === 'all' || source === activeFilter;
 
                 if (matchesSearch && matchesFilter) {
@@ -498,7 +507,7 @@
                 }
             });
 
-            // 4. Hide entire section blocks (including <h2> headers) if no visible lines exist inside
+            // 4. Hide entire section blocks if no visible lines exist inside
             sections.forEach(sec => {
                 const visible = sec.querySelectorAll('.searchable-line:not(.hidden)');
                 if (visible.length === 0) {
